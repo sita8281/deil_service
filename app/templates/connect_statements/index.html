@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/connect_statements/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/connect_statements/modals.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/connect_statements/modals.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/connect_statements/main.js') }}"></script>
+    <title>Доп. заявки</title>
+</head>
+
+{% include 'header.html' %}
+
+    <style>
+
+    </style>
+
+
+    <body>
+        <div class="pass-contain">
+
+        </div>
+        <div class="main-container">
+
+            <div class="statements-box">
+                <div class="top-panel-box">
+                    <a class="a-btn" href="javascript: createWinAddState()">Новая заявка</a>
+                    <a class="a-btn" href="javascript: loadCloseStatements()">Закрытые заявки</a>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="list-box">
+                </div>
+                <div class="list-close-box">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="root-win"></div>
+        <!-- <div class="window-background">
+            <div class="window">
+                <div class="window-content">
+                    <div class="window-top">
+                        <div class="window-top-label">Модальное окно</div>
+                        <a class="window-top-close">
+                            <img class="window-top-close-img" src="/static/img/cross.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="window-middle">
+                    </div>
+                    <div class="window-bottom">
+                        <input class="modal-base-input" type="text" autocomplete="off">
+                        <a class="modal-base-button" href="">Закрыть</a>
+                        <a class="modal-base-button" href="">Создать</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div> -->
+    </body>
+
+
+</html>
