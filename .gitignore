@@ -2,3 +2,4 @@ venv/
 file.log
 main_db.sqlite3
 test.py
+test2.py
