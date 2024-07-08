@@ -3,7 +3,6 @@ from app.models import User, Host, HostFolder
 
 
 # runner
-# ver.get.0.1
 # html 0.2
 
 
