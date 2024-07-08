@@ -22,7 +22,7 @@ def generate_password_crypto(password):
 
 @app.route('/test1', methods=['GET'])
 def test12():
-    return 'OK test1', 200
+    return 'OK test1 1', 200
 
 
 @app.route('/index', methods=['POST', 'GET'])
