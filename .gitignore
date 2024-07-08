@@ -1,5 +1,6 @@
 venv/
 file.log
+**/__pycache__/
 main_db.sqlite3
 test.py
 test2.py
