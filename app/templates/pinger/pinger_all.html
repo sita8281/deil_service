@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/pinger_panel.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/pinger.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pinger_panel.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
+    <script src="{{ url_for('static', filename='js/pinger.js') }}{{ static_ver }}"></script>
     <title>Pinger</title>
 </head>
 
@@ -37,10 +37,10 @@
 
 
         <div class="tool__panel">
-            <a href="{{ url_for('add_folder') }}"><img src="{{ url_for('static', filename='img/create_folder.png') }}" alt=""></a>
-            <a href="{{ url_for('add_host') }}"><img src="{{ url_for('static', filename='img/create_host.png') }}" alt=""></a>
-            <a href="javascript: runPingALL()"><img src="{{ url_for('static', filename='img/check_all.png') }}" alt=""></a>
-            <a href="javascript: runPingDEAD()"><img src="{{ url_for('static', filename='img/check_dead.png') }}" alt=""></a>
+            <a href="{{ url_for('add_folder') }}"><img src="{{ url_for('static', filename='img/create_folder.png') }}{{ static_ver }}" alt=""></a>
+            <a href="{{ url_for('add_host') }}"><img src="{{ url_for('static', filename='img/create_host.png') }}{{ static_ver }}" alt=""></a>
+            <a href="javascript: runPingALL()"><img src="{{ url_for('static', filename='img/check_all.png') }}{{ static_ver }}" alt=""></a>
+            <a href="javascript: runPingDEAD()"><img src="{{ url_for('static', filename='img/check_dead.png') }}{{ static_ver }}" alt=""></a>
             <input type="text" autocomplete="off" placeholder="Ip, название...">
         </div>
         
@@ -63,7 +63,7 @@
                             <tr>
                             {% endif %}
                                 <td class="__folder">
-                                    <img src="{{ url_for('static', filename='img/' + img + '.png') }}" alt="">
+                                    <img src="{{ url_for('static', filename='img/' + img + '.png') }}{{ static_ver }}" alt="">
                                     <a href="{{ url_for('main_pinger', folder=endpoint) }}">{{ name }}</a>
                                 </td>
                                 <td></td>
@@ -77,15 +77,15 @@
                             <tr class="__folder">
                             {% endif %}
                                 <td >
-                                    <img src="{{ url_for('static', filename='img/folder.png') }}" alt="">
+                                    <img src="{{ url_for('static', filename='img/folder.png') }}{{ static_ver }}" alt="">
                                     <a href="{{ url_for('main_pinger', folder=folder.id) }}">{{ folder.name }}</a>
                                 </td>
                                 <td>
                                     <a href="javascript:deleteFolder('{{ url_for('delete_folder', folder=folder.id) }}')">
-                                        <img src="{{ url_for('static', filename='img/cross2.png') }}" alt="">
+                                        <img src="{{ url_for('static', filename='img/cross2.png') }}{{ static_ver }}" alt="">
                                     </a>
                                     <a href="{{ url_for('change_folder', folder=folder.id) }}">
-                                        <img src="{{ url_for('static', filename='img/pencil.png') }}" alt="">
+                                        <img src="{{ url_for('static', filename='img/pencil.png') }}{{ static_ver }}" alt="">
                                     </a>
                                 </td>
                             </tr>
@@ -109,15 +109,15 @@
                             <tr class=status__column id="{{ host.id }}">
                                 <td class="status-td" id="{{ host.state }}">
                                     {% if host.checking == 1 %}
-                                        <img src="{{ url_for('static', filename='img/clock.png') }}" alt="">
+                                        <img src="{{ url_for('static', filename='img/clock.png') }}{{ static_ver }}" alt="">
                                     {% elif host.state == 'online' %}
-                                        <img src="{{ url_for('static', filename='img/icmp_good.png') }}" alt="">
+                                        <img src="{{ url_for('static', filename='img/icmp_good.png') }}{{ static_ver }}" alt="">
                                     {% elif host.state == 'offline' %}
-                                        <img src="{{ url_for('static', filename='img/icmp_bad.png') }}" alt="">
+                                        <img src="{{ url_for('static', filename='img/icmp_bad.png') }}{{ static_ver }}" alt="">
                                     {% elif host.state == 'error' %}
-                                        <img src="{{ url_for('static', filename='img/icmp_bad.png') }}" alt="">
+                                        <img src="{{ url_for('static', filename='img/icmp_bad.png') }}{{ static_ver }}" alt="">
                                     {% elif host.state == 'pause' %}
-                                        <img src="{{ url_for('static', filename='img/pause1.png') }}" alt="">
+                                        <img src="{{ url_for('static', filename='img/pause1.png') }}{{ static_ver }}" alt="">
                                     {% endif %}
                                 </td>
                                 <td class="name__column">{{ host.name }}</td>
@@ -131,16 +131,16 @@
                                     </div>
                                     <div class="desktop__advanced__host">
                                         <a href="javascript:delWindowHost('{{ url_for('delete_host', host=host.id) }}')">
-                                            <img src="{{ url_for('static', filename='img/cross2.png') }}" alt="">
+                                            <img src="{{ url_for('static', filename='img/cross2.png') }}{{ static_ver }}" alt="">
                                         </a>
                                         <a href="{{ url_for('change_host', host=host.id) }}">
-                                            <img src="{{ url_for('static', filename='img/pencil.png') }}" alt="">
+                                            <img src="{{ url_for('static', filename='img/pencil.png') }}{{ static_ver }}" alt="">
                                         </a>
                                         <a href="telnet://{{ host.ip }}/">
-                                            <img src="{{ url_for('static', filename='img/tel.png') }}" alt="">
+                                            <img src="{{ url_for('static', filename='img/tel.png') }}{{ static_ver }}" alt="">
                                         </a>
                                         <a target="_blank" href="{{ url_for('forward_gateway_open', ip=host.ip, port=80) }}">
-                                            <img src="{{ url_for('static', filename='img/web.png') }}" alt="">
+                                            <img src="{{ url_for('static', filename='img/web.png') }}{{ static_ver }}" alt="">
                                         </a>
                                      
                                     </div>
@@ -309,15 +309,15 @@
 
         function getSrcImg(state) {
             switch (state) {
-                case 'online': return '/static/img/icmp_good.png';
-                case 'offline': return '/static/img/icmp_bad.png';
-                case 'pause': return '/static/img/pause1.png';
-                case 'checking': return '/static/img/clock.png';
-                case 'cross': return '/static/img/cross2.png';
-                case 'pencil': return '/static/img/pencil.png';
-                case 'telnet': return '/static/img/tel.png';
-                case 'web': return '/static/img/web.png';
-                default: '/static/img/icmp_bad.png';
+                case 'online': return '/static/img/icmp_good.png{{ static_ver }}';
+                case 'offline': return '/static/img/icmp_bad.png{{ static_ver }}';
+                case 'pause': return '/static/img/pause1.png{{ static_ver }}';
+                case 'checking': return '/static/img/clock.png{{ static_ver }}';
+                case 'cross': return '/static/img/cross2.png{{ static_ver }}';
+                case 'pencil': return '/static/img/pencil.png{{ static_ver }}';
+                case 'telnet': return '/static/img/tel.png{{ static_ver }}';
+                case 'web': return '/static/img/web.png{{ static_ver }}';
+                default: '/static/img/icmp_bad.png{{ static_ver }}';
             }
         }
 
@@ -402,10 +402,10 @@
         function advWindowOpen(id, ip) {
             let modal_window = `
             <div class="advanced__window">
-                <a href="javascript:delWindowHost('/pinger_panel/host_delete/${id}')"><img src="{{ url_for('static', filename='img/cross2.png') }}">Удалить</a>
-                <a href="/pinger_panel/change_host/${id}"><img src="{{ url_for('static', filename='img/pencil.png') }}">Изменить</a>
-                <a href="telnet://${ip}"><img src="{{ url_for('static', filename='img/tel.png') }}">Открыть Telnet</a>
-                <a target="_blank" href="/forward_gateway/?ip=${ip}&port=80"><img src="{{ url_for('static', filename='img/web.png') }}">Открыть через VPN</a>
+                <a href="javascript:delWindowHost('/pinger_panel/host_delete/${id}')"><img src="{{ url_for('static', filename='img/cross2.png') }}{{ static_ver }}">Удалить</a>
+                <a href="/pinger_panel/change_host/${id}"><img src="{{ url_for('static', filename='img/pencil.png') }}{{ static_ver }}">Изменить</a>
+                <a href="telnet://${ip}"><img src="{{ url_for('static', filename='img/tel.png') }}{{ static_ver }}">Открыть Telnet</a>
+                <a target="_blank" href="/forward_gateway/?ip=${ip}&port=80"><img src="{{ url_for('static', filename='img/web.png') }}{{ static_ver }}">Открыть через VPN</a>
                 <a href="javascript: advWindowClose()">Закрыть</a>
             </div>
             `
@@ -464,12 +464,5 @@
 
     </script>
 
-    <script>
-        var socket = new WebSocket("ws://127.0.0.1:8765");
-
-        socket.addEventListener("message", (event) => {
-            location.reload(); 
-        });
-    </script>
 </body>
 </html>

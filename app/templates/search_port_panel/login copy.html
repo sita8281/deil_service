@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/generic.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/left_panel.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/login_page.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/generic.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/left_panel.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/login_page.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
     <title>Search Port</title>
 </head>
 
@@ -20,7 +20,7 @@
 <body>
     {% include 'header.html' %}
     <div class="left-panel-button">
-        <img src="{{ url_for('static', filename='img/search_port/menu.png') }}">
+        <img src="{{ url_for('static', filename='img/search_port/menu.png') }}{{ static_ver }}">
     </div>
     <div class="main-div">
         <div class="label-container">
@@ -33,7 +33,7 @@
 
             <div class="right-panel-container">
                 <div class="right-label">
-                    <img src="{{ url_for('static', filename='img/search_port/menu.png') }}">
+                    <img src="{{ url_for('static', filename='img/search_port/menu.png') }}{{ static_ver }}">
                     Раздел поиска портов по логину
                 </div>
 
@@ -62,7 +62,7 @@
                         <label class="window-label">Не удалось найти порт</label>
 
                         <div class="window-icon">
-                            <img src="{{ url_for('static', filename='img/search_port/cross.png') }}">
+                            <img src="{{ url_for('static', filename='img/search_port/cross.png') }}{{ static_ver }}">
                         </div>
                     </div>
 
@@ -70,7 +70,7 @@
                         <label class="window-label">При поиске возникла ошибка</label>
 
                         <div class="window-icon">
-                            <img src="{{ url_for('static', filename='img/search_port/cross.png') }}">
+                            <img src="{{ url_for('static', filename='img/search_port/cross.png') }}{{ static_ver }}">
                         </div>
                     </div>
                 </div>
@@ -78,8 +78,8 @@
                 <div class="result-panel">
                     <div class="nas-list-node">
                         <div class="nas-node-info">
-                            <img  onclick="openSw()" class="img-tree rotate" src="{{ url_for('static', filename='img/search_port/triangle.png') }}">
-                            <img class="img-icon" src="{{ url_for('static', filename='img/search_port/nas_folder.png') }}">
+                            <img  onclick="openSw()" class="img-tree rotate" src="{{ url_for('static', filename='img/search_port/triangle.png') }}{{ static_ver }}">
+                            <img class="img-icon" src="{{ url_for('static', filename='img/search_port/nas_folder.png') }}{{ static_ver }}">
                             <div class="div-in-nas-node">
                                 <label>Дата создания:</label>
                                 <span>2024/02/27 12:25</span>
@@ -126,9 +126,4 @@
 </script>
 
 <script>
-    var socket = new WebSocket("ws://127.0.0.1:8765");
-
-    socket.addEventListener("message", (event) => {
-        location.reload(); 
-    });
 </script>

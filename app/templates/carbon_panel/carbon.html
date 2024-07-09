@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/carbon_panel/carbon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carbon_panel/carbon.css') }}{{ static_ver }}">
     <title>Carbon Manager</title>
 </head>
 
@@ -17,9 +17,9 @@
 
     <div class="main-block">
         <div class="search-panel">
-            <a href="javascript:searchUsers();"><img class="img-search" src="{{ url_for('static', filename='img/search32.png') }}" alt=""></a>
+            <a href="javascript:searchUsers();"><img class="img-search" src="{{ url_for('static', filename='img/search32.png') }}{{ static_ver }}" alt=""></a>
             <input type="text" class="search-input" name="search" placeholder="Найти пользователя..">
-            <a style="margin-left: 10px;" href=""><img src="{{ url_for('static', filename='img/update32.png') }}" alt=""></a>
+            <a style="margin-left: 10px;" href=""><img src="{{ url_for('static', filename='img/update32.png') }}{{ static_ver }}" alt=""></a>
         </div>
         <div class="tree-container">
             {% for tr in tree %}
@@ -27,11 +27,11 @@
                 <div></div>
                 <a id="a-{{ tr['iid'] }}" class="main-level-a" href="javascript:openChild('{{ tr['iid'] }}', 'a-{{ tr['iid'] }}');">
                     {% if tr['type'] == 'folder' %}
-                    <img src="{{ url_for('static', filename='img/folder16.png') }}" alt=""> {{ tr['name'] }}
+                    <img src="{{ url_for('static', filename='img/folder16.png') }}{{ static_ver }}" alt=""> {{ tr['name'] }}
                     {% elif tr['type'] == 'server' %}
-                    <img src="{{ url_for('static', filename='img/server16.png') }}" alt=""> {{ tr['name'] }}
+                    <img src="{{ url_for('static', filename='img/server16.png') }}{{ static_ver }}" alt=""> {{ tr['name'] }}
                     {% elif tr['type'] == 'user' %}
-                    <img src="{{ url_for('static', filename='img/users16.png') }}" alt=""> {{ tr['name'] }} &lt;{{ tr['login'] }}&gt;
+                    <img src="{{ url_for('static', filename='img/users16.png') }}{{ static_ver }}" alt=""> {{ tr['name'] }} &lt;{{ tr['login'] }}&gt;
                     {% endif %}
                     
                 </a>
@@ -42,7 +42,7 @@
         
                 {% for child in tr['child'] %}
                 <div id="-{{ child['login'] }}" style="display: flex" class="div-users">
-                    <div style="height: 16px;;"><img src="{{ url_for('static', filename='img/users16.png') }}" alt=""></div>
+                    <div style="height: 16px;;"><img src="{{ url_for('static', filename='img/users16.png') }}{{ static_ver }}" alt=""></div>
                     <a class="users" href="javascript:clickUserButton('{{ child['iid']}}', '{{ child['login'] }}');" id="{{ child['login'] }}">
                         {{ child['name'] }} &lt;{{ child['login'] }}&gt;
                     </a>
@@ -54,7 +54,7 @@
         </div>
 
     </div>
-    <script src="{{ url_for('static', filename='js/carbon.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/carbon.js') }}{{ static_ver }}"></script>
     <script>
         function autoOpenClient() {
             let search_input = document.getElementsByClassName('search-input')[0];

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/generic.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/register.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/generic.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/register.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
 
     <title>Gpon Panel</title>
 
@@ -43,21 +43,21 @@
 
                     <div class="window__gpon" id="loading-gpon">
                         <label>Поиск незарегистрированных ONT</label>
-                        <img src="{{ url_for('static', filename='img/gpon/loading.gif') }}">
+                        <img src="{{ url_for('static', filename='img/gpon/loading.gif') }}{{ static_ver }}">
                     </div>
 
                     <div class="window__gpon" id="autofind-notfound">
-                        <label><img src="{{ url_for('static', filename='img/gpon/warning16.png') }}">Предупреждение</label>
+                        <label><img src="{{ url_for('static', filename='img/gpon/warning16.png') }}{{ static_ver }}">Предупреждение</label>
                         <span>Не удалось найти незарегистрированные ONT</span>
                     </div>
 
                     <div class="window__gpon" id="error">
-                        <label><img src="{{ url_for('static', filename='img/gpon/error.png') }}">Ошибка</label>
+                        <label><img src="{{ url_for('static', filename='img/gpon/error.png') }}{{ static_ver }}">Ошибка</label>
                         <span>При выполнении процедуры возникла ошибка, возможно это связанно с плохим соединением</span>
                     </div>
 
                     <div class="window__gpon" id="notify">
-                        <label><img src="{{ url_for('static', filename='img/gpon/good.png') }}">Информация</label>
+                        <label><img src="{{ url_for('static', filename='img/gpon/good.png') }}{{ static_ver }}">Информация</label>
                         <span>Регистрация ONT успешно завершена</span>
                     </div>
 

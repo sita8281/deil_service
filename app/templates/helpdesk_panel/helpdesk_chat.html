@@ -1,5 +1,5 @@
 ﻿<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/helpdesk_panel/helpdesk_chat.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/helpdesk_panel/helpdesk_chat.css') }}{{ static_ver }}">
 
 {% if not redirect%}
 <div class="main-container-chat">
@@ -16,7 +16,7 @@
         let x = document.getElementsByClassName('main-container-chat')[0];
         x.style.borderRadius = '0px';
     </script>
-    <script src="{{ url_for('static', filename='js/helpdesk.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/helpdesk.js') }}{{ static_ver }}"></script>
     {% endif %}
 
     {% if not redirect%}

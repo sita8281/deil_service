@@ -111,13 +111,13 @@
         <a class="a-menu-button" href="{{ url_for('gpon_panel') }}">GPON</a>
         <a class="a-menu-button" href="{{ url_for('connect_statements') }}">Доп. заявки</a>
         <a class="a-menu-button" href="{{ url_for('admin_panel') }}">
-            <img style="width: 20px;" src="{{ url_for('static', filename='img/settings.svg') }}">
+            <img style="width: 20px;" src="{{ url_for('static', filename='img/settings.svg') }}{{ static_ver }}">
         </a>
     </div>
     <a class="a-logout" href="{{ url_for('logout') }}">Выйти</a>
 </header>
 
-<script src="/static/js/jquery-3.7.1.min.js"></script>
+<script src="/static/js/jquery-3.7.1.min.js{{ static_ver }}"></script>
 <script>
     function openMenu() {
         $('.div-container-menu').slideToggle();

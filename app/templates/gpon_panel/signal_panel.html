@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/generic.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/signals_panel.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/generic.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/signals_panel.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
 
     <title>Gpon Panel</title>
 
@@ -68,7 +68,7 @@
                             Вывод дистанций <input id="distance" type="checkbox">
                         </div>  
                         <div style="font-size: 15px;">
-                            <img src="{{ url_for('static', filename='img/gpon/warning16.png') }}" alt="">
+                            <img src="{{ url_for('static', filename='img/gpon/warning16.png') }}{{ static_ver }}" alt="">
                             Вывод дистаций замедляет алгоритм в два раза
                         </div>
                             
@@ -110,7 +110,7 @@
                             Вывод дистанций <input id="distance" type="checkbox">
                         </div>  
                         <div style="font-size: 15px;">
-                            <img src="{{ url_for('static', filename='img/gpon/warning16.png') }}" alt="">
+                            <img src="{{ url_for('static', filename='img/gpon/warning16.png') }}{{ static_ver }}" alt="">
                             Вывод дистаций замедляет алгоритм в два раза
                         </div>
                             
@@ -287,11 +287,4 @@
 
 </script>
 
-<script>
-    var socket = new WebSocket("ws://127.0.0.1:8765");
-
-    socket.addEventListener("message", (event) => {
-        location.reload(); 
-    });
-</script>
 </html>

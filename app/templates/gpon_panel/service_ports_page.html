@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/generic.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/mac_page.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/generic.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/mac_page.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
 
     <title>Gpon Panel</title>
 
@@ -58,11 +58,11 @@
     </div>
 
     <div class="loading-div">
-        <img src="{{ url_for('static', filename='img/gpon/loading.gif') }}">
+        <img src="{{ url_for('static', filename='img/gpon/loading.gif') }}{{ static_ver }}">
     </div>
     <div class="error-win">
         <div class="window__gpon" id="error">
-            <label><img src="{{ url_for('static', filename='img/gpon/error.png') }}">Ошибка</label>
+            <label><img src="{{ url_for('static', filename='img/gpon/error.png') }}{{ static_ver }}">Ошибка</label>
             <span>При выполнении процедуры возникла ошибка, возможно это связанно с плохим соединением</span>
             <button onclick="closeErrorWin()">Закрыть</button>
         </div>
@@ -164,9 +164,9 @@
                     let img = ''
 
                     if (valueOfElement["state"] == 'up') {
-                        img = `{{ url_for('static', filename='img/gpon/online_srv.png') }}`
+                        img = `{{ url_for('static', filename='img/gpon/online_srv.png') }}{{ static_ver }}`
                     } else {
-                        img = `{{ url_for('static', filename='img/gpon/offline_srv.png') }}`
+                        img = `{{ url_for('static', filename='img/gpon/offline_srv.png') }}{{ static_ver }}`
                     }
 
                     let rowData = `
@@ -196,10 +196,5 @@
         $('.error-win').css('display', 'none')
     }
 
-    var socket = new WebSocket("ws://127.0.0.1:8765");
-
-    socket.addEventListener("message", (event) => {
-        location.reload(); 
-    });
 </script>
 </body>
