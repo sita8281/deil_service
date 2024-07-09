@@ -6,7 +6,7 @@ from . import logging_config
 import logging
 
 
-frontend_version = '001'
+frontend_version = '2'
 app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
 # app.config.from_object('config.DevelopementConfig')
