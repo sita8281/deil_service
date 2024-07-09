@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_panel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_panel.css') }}{{ static_ver }}">
     <title>Document</title>
 </head>
 
@@ -22,7 +22,7 @@
                     <label style="font-weight: bold;">Последнее обновление списка пользователей:</label>
                     <label>{{ last_update }}</label>
                     <p>
-                        <a href="{{ url_for('admin_carbon_dump') }}"><img src="/static/img/update_info.png" alt="">Обновить список</a>
+                        <a href="{{ url_for('admin_carbon_dump') }}"><img src="/static/img/update_info.png{{ static_ver }}" alt="">Обновить список</a>
                     </p>
                     <hr>
                     <p>

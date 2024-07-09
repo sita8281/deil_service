@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/carbon_panel/style_app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carbon_panel/style_app.css') }}{{ static_ver }}">
     <meta name="viewport" content="width=divice-width, initial-scale=1, width=900">
     <title>Deil Eye</title>
 </head>
@@ -21,8 +21,8 @@
 
 
     </style>
-    <a href="javascript: history.go(-2)" class="button1"><img class="imgs1" src="/static/img/return_main.png">Вернуться в HelpDesk</a> <br>
-    <a href="javascript: history.go(-1)" class="button1"><img class="imgs1" src="/static/img/carbon32.png">Вернуться в Carbon</a> <br>
+    <a href="javascript: history.go(-2)" class="button1"><img class="imgs1" src="/static/img/return_main.png{{ static_ver }}">Вернуться в HelpDesk</a> <br>
+    <a href="javascript: history.go(-1)" class="button1"><img class="imgs1" src="/static/img/carbon32.png{{ static_ver }}">Вернуться в Carbon</a> <br>
     
     <div style="width: 400px;">
         {% for key, val, color in info %}
@@ -47,7 +47,7 @@
         {% endfor %}
     </div>
 
-    <a href="/search_port/search_login/?login={{ info[1][1] }}" class="button1"><img class="imgs1" src="/static/img/search_port.png">Перейти в Search Port</a> <br>
+    <a href="/search_port/search_login/?login={{ info[1][1] }}" class="button1"><img class="imgs1" src="/static/img/search_port.png{{ static_ver }}">Перейти в Search Port</a> <br>
 
     <div style="font-weight: bold; margin-top: 50px;">Показать сессии</div>
     <div class="calendar" style="width: 400px; display: flex;">

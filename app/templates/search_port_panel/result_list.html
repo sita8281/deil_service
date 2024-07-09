@@ -117,7 +117,7 @@
     {% for nas_dump in result %}
         <div class="nas-node">
             <div class="nas-node-info">
-                <div class="node-img"><img onclick=openChildContainer("nas__{{ nas_dump['id'] }}") src="/static/img/search_port/nas_folder.png"></div>
+                <div class="node-img"><img onclick=openChildContainer("nas__{{ nas_dump['id'] }}") src="/static/img/search_port/nas_folder.png{{ static_ver }}"></div>
                 <div class="node-info-div">
                     <label class="node-info-label">Дата:</label>
                     <label class="node-info-data" >{{ nas_dump['date'] }}</label>
@@ -136,7 +136,7 @@
                     <div class="sw-node">
                         <div class="sw-node-info">
                             
-                            <div class="node-img"><img onclick=openChildContainer("nas__{{ nas_dump['id'] }}-sw__{{ sw_dump['id'] }}") src="/static/img/search_port/sw_folder.png"></div>
+                            <div class="node-img"><img onclick=openChildContainer("nas__{{ nas_dump['id'] }}-sw__{{ sw_dump['id'] }}") src="/static/img/search_port/sw_folder.png{{ static_ver }}"></div>
                             <div class="node-info-div">
                                 <label class="node-info-label">Дата:</label>
                                 <label>{{ sw_dump['date'] }}</label>

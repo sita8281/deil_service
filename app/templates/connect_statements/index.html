@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/connect_statements/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/connect_statements/modals.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/connect_statements/modals.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/connect_statements/main.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/connect_statements/main.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/connect_statements/modals.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
+    <script src="{{ url_for('static', filename='js/connect_statements/modals.js') }}{{ static_ver }}"></script>
+    <script src="{{ url_for('static', filename='js/connect_statements/main.js') }}{{ static_ver }}"></script>
     <title>Доп. заявки</title>
 </head>
 
@@ -48,7 +48,7 @@
                     <div class="window-top">
                         <div class="window-top-label">Модальное окно</div>
                         <a class="window-top-close">
-                            <img class="window-top-close-img" src="/static/img/cross.svg" alt="">
+                            <img class="window-top-close-img" src="/static/img/cross.svg{{ static_ver }}" alt="">
                         </a>
                     </div>
                     <div class="window-middle">

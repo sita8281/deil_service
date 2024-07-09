@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/generic.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/left_panel.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/login_page.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/generic.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/left_panel.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/login_page.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
     <title>Search Port</title>
 </head>
 
@@ -30,7 +30,7 @@
 
             <div class="right-panel-container">
                 <div class="page-label">
-                    <img src="{{ url_for('static', filename='img/search_port/db.png') }}">
+                    <img src="{{ url_for('static', filename='img/search_port/db.png') }}{{ static_ver }}">
                     Создание новой записи в базе данных: NAS, SW
                 </div>
 
@@ -58,7 +58,7 @@
                     <label class="window-label">Неизвестная ошибка</label>
 
                     <div class="window-icon">
-                        <img class="icon48" src="/static/img/search_port/cross.png">
+                        <img class="icon48" src="/static/img/search_port/cross.png{{ static_ver }}">
                     </div>
 
                 </div>
@@ -68,7 +68,7 @@
                     <label class="window-label">Сервер уже выполняет эту процедуру</label>
 
                     <div class="window-icon">
-                        <img class="icon48" src="/static/img/search_port/warning.png">
+                        <img class="icon48" src="/static/img/search_port/warning.png{{ static_ver }}">
                     </div>
 
                 </div>
@@ -77,7 +77,7 @@
                 <div class="window-div" id="ok" style="display: none;">
                     <label class="window-label">Новая запись добавлена в базу данных</label>
                     <div class="window-icon">
-                        <img class="icon48" src="/static/img/search_port/ok.png">
+                        <img class="icon48" src="/static/img/search_port/ok.png{{ static_ver }}">
                     </div>
 
                 </div>
@@ -86,7 +86,7 @@
                 <div class="window-div" id="ok-sw" style="display: none;">
                     <label class="window-label">Запрос принят, процедура займёт несколько минут</label>
                     <div class="window-icon">
-                        <img class="icon48" src="/static/img/search_port/ok.png">
+                        <img class="icon48" src="/static/img/search_port/ok.png{{ static_ver }}">
                     </div>
 
                 </div>
@@ -167,9 +167,4 @@
         });
     }
 
-    var socket = new WebSocket("ws://127.0.0.1:8765");
-
-    socket.addEventListener("message", (event) => {
-        location.reload(); 
-    });
 </script>

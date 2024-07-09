@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/generic.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/sn_panel.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/generic.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gpon_panel/sn_panel.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
 
     <title>Gpon Panel</title>
 
@@ -51,7 +51,7 @@
                 <div class="sn-gpon" id="success">
                     <label>Поиск завершен</label>
                     <div style="display: flex;">
-                        <img src="{{ url_for('static', filename='img/gpon/success.png') }}" style="width: 128px; height: 128px;">
+                        <img src="{{ url_for('static', filename='img/gpon/success.png') }}{{ static_ver }}" style="width: 128px; height: 128px;">
                         <div>
                             <div style="display: flex;"><span style="font-weight: bold;">Gpon блок: </span><span style="margin-left: 5px;" id="gpon"></span></div>
                             <div style="display: flex;"><span style="font-weight: bold;">Слот: </span><span style="margin-left: 5px;" id="slot"></span></div>
@@ -67,7 +67,7 @@
                 <div class="sn-gpon" id="not-found">
                     <label>Поиск завершен</label>
                     <div>
-                        <img src="{{ url_for('static', filename='img/gpon/cross2.png') }}" style="width: 128px; height: 128px;">
+                        <img src="{{ url_for('static', filename='img/gpon/cross2.png') }}{{ static_ver }}" style="width: 128px; height: 128px;">
                     </div>
                     <span style="margin-bottom: 10px; display: block;">Не удалось найти ONT</span>
                 </div>
@@ -233,13 +233,5 @@
         $("#searching-gpon").css("display", "block")
         searchingEtag(0);   
     }
-</script>
-
-<script>
-    var socket = new WebSocket("ws://127.0.0.1:8765");
-
-    socket.addEventListener("message", (event) => {
-        location.reload(); 
-    });
 </script>
 </html>

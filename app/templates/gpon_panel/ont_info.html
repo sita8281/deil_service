@@ -159,7 +159,7 @@
 
 <div class="info-div">
     <div>
-        <img src="{{ url_for('static', filename='img/gpon/loading.gif') }}" alt="">
+        <img src="{{ url_for('static', filename='img/gpon/loading.gif') }}{{ static_ver }}" alt="">
     </div>
     <span>Загрузка информации..</span>
 </div>
@@ -239,13 +239,13 @@
 <div class="delete__onu" id="del-loading">
     <div class="delete__onu__window">
         <label>Удаление ONT</label>
-        <img src="{{ url_for('static', filename='img/gpon/loading.gif') }}">
+        <img src="{{ url_for('static', filename='img/gpon/loading.gif') }}{{ static_ver }}">
     </div>
 </div>
 
 <div class="delete__onu" id="del-success">
     <div class="delete__onu__window">
-        <label><img src="{{ url_for('static', filename='img/gpon/good.png') }}">Успешно</label>
+        <label><img src="{{ url_for('static', filename='img/gpon/good.png') }}{{ static_ver }}">Успешно</label>
         <div>Удаление ONT успешно завершено</div>
         <div><button onclick="closeAllWindows()">Закрыть</button></div>
     </div>
@@ -254,7 +254,7 @@
 
 <div class="delete__onu" id="del-error">
     <div class="delete__onu__window">
-        <label><img src="{{ url_for('static', filename='img/gpon/warning16.png') }}">Ошибка</label>
+        <label><img src="{{ url_for('static', filename='img/gpon/warning16.png') }}{{ static_ver }}">Ошибка</label>
         <div id="data-error">Не удалось удалить ONT (повторите попытку через некоторое время)</div>
         <div><button onclick="closeAllWindows()">Закрыть</button></div>
     </div>
@@ -311,17 +311,17 @@
                 let btns_html = `
                 <div class="buttons__info" >
                     <button id='deleteONT' onclick=openDeleteQuestion()>
-                        <img src="{{ url_for('static', filename='img/gpon/delete.png') }}">
+                        <img src="{{ url_for('static', filename='img/gpon/delete.png') }}{{ static_ver }}">
                         <label href="">Удалить ONT</label>
                     </button>
 
                     <button id='opticalPING' onclick=openWinOpticalPing()>
-                        <img src="{{ url_for('static', filename='img/gpon/ping.png') }}">
+                        <img src="{{ url_for('static', filename='img/gpon/ping.png') }}{{ static_ver }}">
                         <label href="">Оптический пинг</label>
                     </button>
 
                     <button id='searchMAC' onclick=openWinSearchMac()>
-                        <img src="{{ url_for('static', filename='img/gpon/mac.png') }}">
+                        <img src="{{ url_for('static', filename='img/gpon/mac.png') }}{{ static_ver }}">
                         <label href="">Найти логин и MAC</label>
                     </button>
                 </div>
@@ -390,7 +390,7 @@
                 timeout: 5000,
                 success: function (response) {
                     $.each(response, function (indexInArray, valueOfElement) { 
-                         $(`<tr><td><img src="{{ url_for('static', filename='img/gpon/user_carbon.png') }}"></td><td>${valueOfElement[0]}</td><td>${valueOfElement[1]}</td></tr>`).appendTo('#search-table');
+                         $(`<tr><td><img src="{{ url_for('static', filename='img/gpon/user_carbon.png') }}{{ static_ver }}"></td><td>${valueOfElement[0]}</td><td>${valueOfElement[1]}</td></tr>`).appendTo('#search-table');
                     });
                 }
             });

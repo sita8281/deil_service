@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/generic.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/left_panel.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/login_page.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/generic.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/left_panel.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/login_page.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
     <title>Search Port</title>
 </head>
 
@@ -99,7 +99,7 @@
 
             <div class="right-panel-container">
                 <div class="page-label">
-                    <img src="{{ url_for('static', filename='img/search_port/switch.png') }}">
+                    <img src="{{ url_for('static', filename='img/search_port/switch.png') }}{{ static_ver }}">
                     Список всех записей SW (коммутаторов)
                 </div>
 
@@ -121,8 +121,8 @@
                                     <td class="column-date">{{ i.date }}</td>
                                     <td class="column-size">{{ i.len }}</td>
                                     <td>
-                                        <a href="{{ url_for('search_port_delete_sw', iid=i.id) }}"><img src="/static/img/cross2.png" alt=""></a>
-                                        <a href="javascript:openWin(id='{{ i.id }}')"><img src="/static/img/file16.png" alt=""></a>
+                                        <a href="{{ url_for('search_port_delete_sw', iid=i.id) }}"><img src="/static/img/cross2.png{{ static_ver }}" alt=""></a>
+                                        <a href="javascript:openWin(id='{{ i.id }}')"><img src="/static/img/file16.png{{ static_ver }}" alt=""></a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -136,7 +136,7 @@
                     <div>
                         <div class="window-label" style="display: flex;">
                             <label class="label-win">Список записанных данных</label>
-                            <a href="javascript:closeWin()" class="close-win"><img class="icon24" src="/static/img/search_port/close.png"></a>
+                            <a href="javascript:closeWin()" class="close-win"><img class="icon24" src="/static/img/search_port/close.png{{ static_ver }}"></a>
                         </div>
                     </div>
 
@@ -198,10 +198,4 @@
             }
         });
     }
-
-    var socket = new WebSocket("ws://127.0.0.1:8765");
-
-    socket.addEventListener("message", (event) => {
-        location.reload(); 
-    });
 </script>

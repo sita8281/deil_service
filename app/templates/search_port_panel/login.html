@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/generic.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/left_panel.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/generic.css') }}{{ static_ver }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_port_panel/left_panel.css') }}{{ static_ver }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}{{ static_ver }}"></script>
     <title>Search Port</title>
 </head>
 
@@ -29,7 +29,7 @@
 
             <div class="right-panel-container">
                 <div class="page-label">
-                    <img src="{{ url_for('static', filename='img/search_port/user.png') }}">
+                    <img src="{{ url_for('static', filename='img/search_port/user.png') }}{{ static_ver }}">
                     Поиск портов по логину
                 </div>
 
@@ -65,7 +65,7 @@
                     <label class="window-label">Не найдено</label>
 
                     <div class="window-icon">
-                        <img class="icon48" src="/static/img/search_port/not_found.png">
+                        <img class="icon48" src="/static/img/search_port/not_found.png{{ static_ver }}">
                     </div>
 
                 </div>
@@ -75,7 +75,7 @@
                     <label class="window-label">Неизвестная ошибка</label>
 
                     <div class="window-icon">
-                        <img class="icon48" src="/static/img/search_port/cross.png">
+                        <img class="icon48" src="/static/img/search_port/cross.png{{ static_ver }}">
                     </div>
 
                 </div>

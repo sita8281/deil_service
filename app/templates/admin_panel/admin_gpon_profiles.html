@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_panel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_panel.css') }}{{ static_ver }}">
     <title>Document</title>
 </head>
 
@@ -51,7 +51,7 @@
                                 <td>{{ profile.line_profile }}</td>
                                 <td>
                                     <a href="{{ url_for('admin_gpon_del', iid=profile.id) }}">
-                                        <img src="{{ url_for('static', filename='img/cross2.png') }}">
+                                        <img src="{{ url_for('static', filename='img/cross2.png') }}{{ static_ver }}">
                                     </a>
                                 </td>
                             </tr>
