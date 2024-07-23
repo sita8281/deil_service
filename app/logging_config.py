@@ -24,5 +24,7 @@ init_logger('nas_daemon')
 init_logger('search_port')
 init_logger('pinger_daemon')
 init_logger('vpn_daemon')
+init_logger('config_storage')
+init_logger('connect_statements')
 
 

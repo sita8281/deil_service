@@ -203,5 +203,3 @@ class ICMPdaemon(Thread):
 
     def ping_all(self):
         return self._run_checking(queue_message={'SIGNAL': 'PING_ALL'})
-
-
