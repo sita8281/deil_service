@@ -71,7 +71,6 @@
     padding: 5px;
     box-sizing: border-box;
     overflow-x: scroll;
-    white-space: nowrap;
 }
 .form_new label {
     margin-top: 10px;
