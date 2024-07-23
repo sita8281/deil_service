@@ -6,10 +6,10 @@ from . import logging_config
 import logging
 
 
-frontend_version = '2'
+frontend_version = '3'
 app = Flask(__name__)
-# app.config.from_object('config.ProductionConfig')
-app.config.from_object('config.DevelopementConfig')
+app.config.from_object('config.ProductionConfig')
+# app.config.from_object('config.DevelopementConfig')
 # app.config.from_object('config.DisableIcmpConfig')
 
 logging.getLogger('app').info('Приложение запущено и ожидает новых подключений')
