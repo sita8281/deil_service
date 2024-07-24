@@ -160,7 +160,7 @@
 }
 
 
-@media (max-width: 810px) {
+@media (max-width: 850px) {
     .main-container-chat {
         width: 90%;
         height: calc(100% - 150px);

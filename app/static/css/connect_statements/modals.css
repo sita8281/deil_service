@@ -99,8 +99,8 @@
     margin-left: auto;
     cursor: pointer;
     background-color: rgb(231, 231, 231);
-    min-height: 35px;
-    min-width: 35px;
+    height: 35px;
+    width: 35px;
     line-height: 30px;
     border-radius: 5px;
     transition: 0.2s;
