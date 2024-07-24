@@ -248,7 +248,7 @@ def service_port_list(gpon):
         "conf\n",
         "display service-port all\n",
         "\n",
-        "  "*10
+        "  "*30
     ]
     data, error = conn.exec(cmds=cmds, end_term="x321", timeout=10)
     if error:

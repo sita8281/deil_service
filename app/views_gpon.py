@@ -298,6 +298,7 @@ def delete_onu():
         port=request.form["port"],
         onu_id=request.form["onu_id"],
     )
+
     if r.get('success'):
         logger.info(f'{current_user.login}: удалил ONT {dict(request.form)}')
         return jsonify({"success": "ONT успешно удалена."})
