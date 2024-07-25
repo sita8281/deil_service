@@ -29,7 +29,6 @@ function innerBlock(html, block, displ=true) {
     bl.innerHTML = html;
     if (displ) {
         bl.style.display = 'flex';
-        $('body, html').css('overflow', 'hidden');
     }
 }
 
@@ -54,6 +53,7 @@ async function openWindowChat(iid) {
     let response = await fetch('/helpdesk/helpdesk_chat/');
     if (response.ok) {
         innerBlock(await response.text(), 'window-block');
+        $('body, html').css('overflow', 'hidden');
     }
 
     innerBlock(loading_anim, 'main-div-chat');
