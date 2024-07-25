@@ -23,7 +23,8 @@ def generate_password_crypto(password):
 @app.route('/ip', methods=['GET'])
 @login_required
 def my_ip():
-    return str(request.headers), 200
+    host = str(request.headers.get('X-Real-Ip'))
+    return host, 200
 
 
 @app.route('/index', methods=['POST', 'GET'])
