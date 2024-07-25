@@ -20,6 +20,12 @@ def generate_password_crypto(password):
     return crypt.encrypt(password.encode('utf-8'))
 
 
+@app.route('/ip', methods=['GET'])
+@login_required
+def my_ip():
+    return request.remote_addr, 200
+
+
 @app.route('/index', methods=['POST', 'GET'])
 @app.route('/', methods=['POST', 'GET'])
 @login_required
