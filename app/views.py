@@ -2,7 +2,7 @@ import pickle
 from .modules import pinger, nas_poller, vpn_gateway
 from app import app, forms, db, models, views_permission
 from .deil_api_context import DeilContext
-from flask import render_template, request, redirect, url_for, flash, session, send_file
+from flask import render_template, request, redirect, url_for, flash, session, send_file, jsonify
 from flask_login import login_required, login_user, logout_user, current_user
 from datetime import timedelta
 from sqlalchemy import exc as db_exc
@@ -23,7 +23,7 @@ def generate_password_crypto(password):
 @app.route('/ip', methods=['GET'])
 @login_required
 def my_ip():
-    return request.remote_addr, 200
+    return jsonify({'ip': request.remote_addr, 'headers': request.headers})
 
 
 @app.route('/index', methods=['POST', 'GET'])
