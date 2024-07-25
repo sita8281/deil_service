@@ -148,7 +148,7 @@ def helpdesk_form():
 def helpdesk_create():
     try:
         with DeilContext() as deil_api:
-            deil_api.create_helpdesk(request.args.get('iid'), request.args.get('subj'), request.args.get('info'))
+            deil_api.create_helpdesk(request.args.get('iid').strip(), request.args.get('subj'), request.args.get('info'))
             return jsonify({'success': 'statement created'})
     except Exception as helpdesk_err:
         return jsonify({'error': str(helpdesk_err)})

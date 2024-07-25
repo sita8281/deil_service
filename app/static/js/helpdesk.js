@@ -29,6 +29,7 @@ function innerBlock(html, block, displ=true) {
     bl.innerHTML = html;
     if (displ) {
         bl.style.display = 'flex';
+        $('body, html').css('overflow', 'hidden');
     }
 }
 
@@ -80,6 +81,8 @@ function openWindowAdd() {
 function closeWindowChat() {
     state_window_chat = 'close' //переводим в закрытое состояние
     closeBlock('window-block');
+    $('body, html').css('overflow', 'auto');
+
 }
 
 function closeWindowAdd() {

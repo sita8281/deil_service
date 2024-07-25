@@ -17,12 +17,15 @@ def carbon_main():
     all_tree = db.session.query(models.CarbonApiData).get_or_404(1).data
     logger.info(f'{current_user.login}: посетил Carbon страницу')
     login = ''
+    params = None
+    if request.args.get('create_statement'):
+        params = 'create_statement'
     if request.args.get('login'):
         login = request.args.get('login')
     return render_template(
         'carbon_panel/carbon.html',
         tree=pickle.loads(all_tree),
-        params=None,
+        params=params,
         login=login
     )
 
