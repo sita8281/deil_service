@@ -23,7 +23,7 @@ def generate_password_crypto(password):
 @app.route('/ip', methods=['GET'])
 @login_required
 def my_ip():
-    return jsonify({'ip': request.remote_addr, 'headers': request.headers})
+    return jsonify({'ip': request.remote_addr, 'headers': request.headers}), 200
 
 
 @app.route('/index', methods=['POST', 'GET'])
