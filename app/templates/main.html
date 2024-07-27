@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_menu.css') }}{{ static_ver }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+</head>
+
+<body>
+    <div class="main-menu">
+
+        {% include 'header.html' %}
+
+        <div class="title-menu">
+            <a class="a-menu">Добро пожаловать, {{ current_user.login }}</a>
+        </div>
+
+        <div class="content-menu">
+
+
+
+        </div>
+
+        <div class="adv-content">
+
+        </div>
+        <div style="width: 100%; display: flex;"><a
+                style="margin-left: auto; margin-right: auto; margin-top: 20px; font-size: 20px; color: rgb(0, 0, 0);"
+                href="/logout/">Выйти</a></div>
+
+    </div>
+</body>
+
+</html>
