@@ -37,5 +37,6 @@ from . import (
     deil_api_context,
     views_helpdesk,
     views_connect_statements,
+    views_online_users
 )
 from .modules import pinger
