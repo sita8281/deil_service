@@ -14,7 +14,7 @@
         {% include 'header.html' %}
 
         <div class="title-menu">
-            <a class="a-menu">Добро пожаловать, {{ current_user.login }}</a>
+            <a class="a-menu">Доброаловать, {{ current_user.login }}</a>
         </div>
 
         <div class="content-menu">
@@ -29,8 +29,60 @@
         <div style="width: 100%; display: flex;"><a
                 style="margin-left: auto; margin-right: auto; margin-top: 20px; font-size: 20px; color: rgb(0, 0, 0);"
                 href="/logout/">Выйти</a></div>
+        
+        
+        <table class="users-list">
+            <thead>
+                <th>Пользователь</th>
+                <th>IP</th>
+                <th>Действие</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+
 
     </div>
+    <script>
+
+        function logoutUser(login, id) {
+            $.ajax({
+                type: "post",
+                url: "/disconnect",
+                data: {login: login, id: id},
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        }
+
+        $.ajax({
+            type: "get",
+            url: "/online_users",
+            dataType: "json",
+            success: function (response) {
+                response.forEach(element => {
+                    $(`<tr><td>${element.login}</td><td>${element.address}</td><td><a href="javascript:logoutUser('${element.login}', '${element.id}')">Logout</a></td></tr>`).appendTo('.users-list');
+                });
+            }
+        });
+        
+        setInterval(() => {
+            $.ajax({
+                type: "post",
+                url: "/connected",
+                dataType: "text",
+                success: function (response) {
+                    console.log(response);
+                    if (response == 'logout') {
+                        window.location = '/logout';
+                    }
+                }
+            });
+        }, 1000);
+    </script>
 </body>
 
 </html>
