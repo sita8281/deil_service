@@ -6,14 +6,15 @@ import uuid
 class SessionMaker(Thread):
     _online_users = {}
     daemon = True
+    timeout_session = 20
 
     def run(self) -> None:
         print(' * Web Sessions Daemon: on')
         while True:
-            time.sleep(1)
+            time.sleep(2)
             try:
                 for key, val in self._online_users.items():
-                    if time.time() - val[1] > 10:
+                    if time.time() - val[1] > self.timeout_session:
                         self._disconnect(key)
             except Exception:
                 pass

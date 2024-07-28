@@ -11,7 +11,6 @@ function sessionHold() {
         dataType: "text",
         timeout: 3000,
         success: function (response) {
-            console.log(response);
             if (response == 'logout') {
                 window.location = '/logout';
             }
