@@ -11,12 +11,14 @@ def is_online():
     if not host:
         host = request.remote_addr
 
-    sessions_online.connect(
+    signal = sessions_online.connect(
         session_token=request.cookies.get('session'),
         remote_ip=host,
         login=current_user.login
     )
-    return 'Connected', 200
+    if signal:
+        return signal, 200
+    return 'empty', 200
 
 
 @app.route('/online_users', methods=['GET'])

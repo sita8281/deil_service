@@ -22,7 +22,8 @@ class SessionMaker(Thread):
         if self._online_users.get(session_token):
             self._online_users[session_token][0] = remote_ip
             self._online_users[session_token][1] = int(time.time())
-            return 'logout'
+            return self._online_users[session_token][2]
+
         else:
             self._online_users[session_token] = [remote_ip, int(time.time()), None, str(uuid.uuid4()), login]
 
@@ -31,7 +32,7 @@ class SessionMaker(Thread):
             del self._online_users[session_token]
 
     def logout_signal(self, session_id) -> None:
-        for key, val in self._online_users:
+        for key, val in self._online_users.items():
             if val[3] == session_id:
                 self._online_users[key][2] = 'logout'
 
