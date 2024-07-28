@@ -35,11 +35,13 @@
         setInterval(() => {
             $.ajax({
                 type: "post",
-                url: "/is_online",
+                url: "/connected",
                 dataType: "text",
+                success: function (response) {
+                    console.log(response);
+                }
             });
         }, 5000);
-        
     </script>
 </body>
 

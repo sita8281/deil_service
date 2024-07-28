@@ -18,20 +18,28 @@ class SessionMaker(Thread):
             except Exception:
                 pass
 
-    def connect(self, session_token: str, remote_ip: str) -> None:
-        self._online_users[session_token] = [remote_ip, int(time.time()), 'connect', str(uuid.uuid4())]
+    def connect(self, session_token: str, remote_ip: str, login: str) -> str | None:
+        if self._online_users.get(session_token):
+            self._online_users[session_token][0] = remote_ip
+            self._online_users[session_token][1] = int(time.time())
+            return 'logout'
+        else:
+            self._online_users[session_token] = [remote_ip, int(time.time()), None, str(uuid.uuid4()), login]
 
     def _disconnect(self, session_token: str) -> None:
         if session_token in self._online_users:
             del self._online_users[session_token]
 
-    def logout_signal(self, session_token) -> None:
-        if session_token in self._online_users:
-            self._online_users[session_token][2] = 'logout'
+    def logout_signal(self, session_id) -> None:
+        for key, val in self._online_users:
+            if val[3] == session_id:
+                self._online_users[key][2] = 'logout'
 
     @property
-    def get_connections(self) -> dict:
-        return self._online_users
+    def get_connections(self) -> list[dict]:
+        return [
+            {'address': usr[0], 'status': usr[2], 'id': usr[3], 'login': usr[4]} for key, usr in self._online_users.items()
+        ]
 
 
 
