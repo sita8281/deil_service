@@ -59,11 +59,12 @@
     margin-bottom: 5px;
 }
 
+
 .href-a {
     display: flex;
     margin-top: 5px;
     margin-bottom: 5px;
-    height: 30px;
+    min-height: 30px;
     line-height: 30px;
     text-decoration: none;
     color: rgb(0, 87, 185);
@@ -83,11 +84,33 @@
 }
 
 .dead-host {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    min-height: 30px;
+    align-items: center
 
 }
 
 .dead-host img {
     height: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.dead-host a {
+    color: rgb(0, 87, 185);
+    text-decoration: none;
+}
+
+.dead-host:hover {
+    background-color: rgb(224, 224, 224);
+    text-decoration: underline;
+}
+
+
+.dead-host a:hover {
+    text-decoration: underline;
 }
 
 
