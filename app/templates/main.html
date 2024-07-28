@@ -69,19 +69,7 @@
             }
         });
         
-        setInterval(() => {
-            $.ajax({
-                type: "post",
-                url: "/connected",
-                dataType: "text",
-                success: function (response) {
-                    console.log(response);
-                    if (response == 'logout') {
-                        window.location = '/logout';
-                    }
-                }
-            });
-        }, 1000);
+        
     </script>
 </body>
 
