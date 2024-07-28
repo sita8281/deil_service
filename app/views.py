@@ -33,7 +33,7 @@ def index():
     except Exception as e:
         app_logger.error('Ошибка при изменении даты посещения в базе данных')
         app_logger.exception(e)
-    return render_template('main.html')
+    return render_template('index.html')
 
 
 @app.route('/logout/', methods=['get'])
