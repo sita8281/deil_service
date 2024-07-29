@@ -112,7 +112,12 @@
             success: function (response) {
                 let lstUsers = '';
                 response.forEach(element => {
-                    lstUsers = lstUsers + `<tr><td><img src="/static/img/user.svg{{ static_ver }}"></td><td>${element.login}</td><td>${element.address}</td><td><a href="javascript:logoutUser('${element.login}', '${element.id}')">Logout</a></td></tr>`;
+                    if (element.status == 'logout') {
+                        console.log(element.status);
+                        lstUsers = lstUsers + `<tr><td><img src="/static/img/user.svg{{ static_ver }}"></td><td>${element.login}</td><td>${element.address}</td><td>отключение..</td></tr>`;
+                    } else {
+                        lstUsers = lstUsers + `<tr><td><img src="/static/img/user.svg{{ static_ver }}"></td><td>${element.login}</td><td>${element.address}</td><td><a href="javascript:logoutUser('${element.login}', '${element.id}')">Logout</a></td></tr>`;
+                    }
                 });
                 $('.online-users').html(lstUsers);
             }
