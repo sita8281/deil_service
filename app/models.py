@@ -138,7 +138,7 @@ class ConnectStatements(db.Model):
     messages = db.Column(db.LargeBinary)
 
     @property
-    def to_serializeble(self):
+    def to_serializeble(self) -> dict:
         return dict(
             id=self.id,
             date=self.date,
@@ -146,3 +146,12 @@ class ConnectStatements(db.Model):
             for_whom=self.for_whom,
             status=self.status
         )
+
+    @property
+    def lst(self) -> list:
+        return [self.date, self.name, self.for_whom, self.status, self.messages]
+
+    @lst.setter
+    def lst(self, new_list):
+        self.date, self.name, self.for_whom, self.status, self.messages = new_list
+

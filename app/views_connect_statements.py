@@ -108,20 +108,34 @@ def connect_statements_resource(iid):
 @app.route('/connect_statements/replace', methods=['POST'])
 @login_required
 def statements_replace():
-    stmts = db.session.query(models.ConnectStatements).filter(models.ConnectStatements.status >= 1).all()
-    try:
-        last = int(request.form.get('last'))
-        new = int(request.form.get('new'))
-        ids = [stmt.id for stmt in stmts]
-    except ValueError:
-        return abort(400)
+    stmts = db.session.query(models.ConnectStatements).all()
+    drag = request.form.get('drag')
+    drop = request.form.get('drop')
+    if 'id' in drag and 'sep' in drop:
+        drag_id = int(drag.split('-')[1].strip())
+        drop_id = int(drop.split('-')[1].strip())
 
-    if (last in ids and new in ids) is False:
-        return abort(400)
-
+        if drag_id > drop_id:
+            print(drag_id, drop_id)
     for i in stmts:
-        print(i.id)
-    return jsonify([stmt.to_serializeble for stmt in stmts])
+        print(i.lst)
+        if i.id == 31:
+            i.lst = ['1', '2', '3', '4', b'0']
+    # db.session.flush()
+    # db.session.commit()
+
+    return 'OK', 200
+
+
+@app.route('/connect_statements/repl', methods=['POST'])
+@login_required
+def statements_repl():
+    for i in db.session.query(models.ConnectStatements).all():
+        print(i.id, i.name)
+
+    return 'OK', 200
+
+
 
 
 
