@@ -128,26 +128,16 @@ def statements_replace():
                     stmts[i-1].lst, stmts[i].lst = stmts[i].lst, stmts[i-1].lst
                 if stmts[i].id == drop_id:
                     break
-
-
-
-
-    db.session.flush()
-    db.session.commit()
+    try:
+        db.session.flush()
+        db.session.commit()
+    except SQLAlchemyError:
+        return abort(500)
 
     return 'OK', 200
 
 
-@app.route('/connect_statements/repl', methods=['POST'])
+@app.route('/connect_statements/folders/<folder>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 @login_required
-def statements_repl():
-    for i in db.session.query(models.ConnectStatements).all():
-        print(i.id, i.name)
-
+def statement_folder_resource(folder):
     return 'OK', 200
-
-
-
-
-
-

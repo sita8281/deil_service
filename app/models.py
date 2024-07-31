@@ -133,9 +133,11 @@ class ConnectStatements(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(30))
     name = db.Column(db.String(200))
-    for_whom = db.Column(db.String(30))
+    for_whom = db.Column(db.String(100))
+    for_whom_color = db.Column(db.String(40))
     status = db.Column(db.Integer)
     messages = db.Column(db.LargeBinary)
+    folder_id = db.Column(db.Integer)
 
     @property
     def to_serializeble(self) -> dict:
@@ -144,14 +146,21 @@ class ConnectStatements(db.Model):
             date=self.date,
             name=self.name,
             for_whom=self.for_whom,
-            status=self.status
+            for_whom_color=self.for_whom_color,
+            status=self.status,
+            folder_id=self.folder_id
         )
 
     @property
     def lst(self) -> list:
-        return [self.date, self.name, self.for_whom, self.status, self.messages]
+        return [self.date, self.name, self.for_whom, self.status, self.messages, self.for_whom_color, self.folder_id]
 
     @lst.setter
     def lst(self, new_list):
-        self.date, self.name, self.for_whom, self.status, self.messages = new_list
+        self.date, self.name, self.for_whom, self.status, self.messages, self.for_whom_color, self.folder_id = new_list
 
+
+class StatementsFolder(db.Model):
+    __tablename__ = 'statement_folder'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)

@@ -74,7 +74,6 @@ function loadOpenStatements () {
                     <div class="statement" id="id-${element.id}" draggable="true" ondragstart="drag(event)">
                         <div class="statement-date">${element.date}</div>
                         <div class="statement-label">
-                            <div class="statement-number">${element.id}</div>
                             <a class="statement-name" href="javascript: createWinChangeState(${element.id})">${element.name}</a>
                             <div class="statement-whom">${element.for_whom}</div>
                         </div>
@@ -128,7 +127,7 @@ function loadCloseStatements () {
                     }
                     const content = `
                     <div class="statement" id="id-${element.id}">
-                        <div class="statement-date">${element.date}00000</div>
+                        <div class="statement-date">${element.date}</div>
                         <div class="statement-label">
                             <div class="statement-number">${element.id}</div>
                             <a class="statement-name" href="javascript: createWinChangeState(${element.id})">${element.name}</a>
