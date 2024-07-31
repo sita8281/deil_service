@@ -109,20 +109,35 @@ def connect_statements_resource(iid):
 @login_required
 def statements_replace():
     stmts = db.session.query(models.ConnectStatements).filter(models.ConnectStatements.status >= 1).all()
+    drag = request.form.get('drag')
+    drop = request.form.get('drop')
+    if 'id' in drag and 'sep' in drop:
+        drag_id = int(drag.split('-')[1].strip())
+        drop_id = int(drop.split('-')[1].strip())
+
+        if drag_id > drop_id:
+            for i in reversed(range(len(stmts))):
+                if stmts[i].id < drag_id:
+                    stmts[i+1].lst, stmts[i].lst = stmts[i].lst, stmts[i+1].lst
+                if stmts[i].id == drop_id:
+                    break
+
+        if drag_id < drop_id:
+            for i in range(len(stmts)):
+                if stmts[i].id > drag_id:
+                    stmts[i-1].lst, stmts[i].lst = stmts[i].lst, stmts[i-1].lst
+                if stmts[i].id == drop_id:
+                    break
     try:
-        last = int(request.form.get('last'))
-        new = int(request.form.get('new'))
-        ids = [stmt.id for stmt in stmts]
-    except ValueError:
-        return abort(400)
+        db.session.flush()
+        db.session.commit()
+    except SQLAlchemyError:
+        return abort(500)
 
-    if (last in ids and new in ids) is False:
-        return abort(400)
-
-    for i in stmts:
-        print(i.id)
-    return jsonify([stmt.to_serializeble for stmt in stmts])
+    return 'OK', 200
 
 
-
-
+@app.route('/connect_statements/folders/<folder>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@login_required
+def statement_folder_resource(folder):
+    return 'OK', 200

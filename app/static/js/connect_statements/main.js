@@ -70,10 +70,10 @@ function loadOpenStatements () {
                             statusClass = 'status-close';
                             break;
                     }
-                    const content = `<div class="statement" id="id-${element.id}">
+                    const content = `
+                    <div class="statement" id="id-${element.id}" draggable="true" ondragstart="drag(event)">
                         <div class="statement-date">${element.date}</div>
                         <div class="statement-label">
-                            <div class="statement-number">${element.id}</div>
                             <a class="statement-name" href="javascript: createWinChangeState(${element.id})">${element.name}</a>
                             <div class="statement-whom">${element.for_whom}</div>
                         </div>
@@ -82,6 +82,7 @@ function loadOpenStatements () {
                             <a class="a-btn close-btn" href="javascript: closeStatement(${element.id})">Закрыть</a>
                         </div>
                     </div>
+                    <div id="sep-${element.id}" class="separator-statement" ondrop="drop(event)" ondragenter="enterDrag(event)" ondragleave="leaveDrag(event)" ondragover="overDrag(event)"></div>
                     `
                     $(content).appendTo('.list-box');
                 });
@@ -124,7 +125,8 @@ function loadCloseStatements () {
                             statusClass = 'status-close';
                             break;
                     }
-                    const content = `<div class="statement" id="id-${element.id}">
+                    const content = `
+                    <div class="statement" id="id-${element.id}">
                         <div class="statement-date">${element.date}</div>
                         <div class="statement-label">
                             <div class="statement-number">${element.id}</div>
@@ -215,6 +217,47 @@ function updateMessages (id) {
     });
 }
 
+function overDrag(e) {
+    e.preventDefault();
+    //console.log(e);
+}
+
+function enterDrag(e) {
+    e.preventDefault();
+    e.target.style.backgroundColor = 'black';
+}
+
+function leaveDrag(e) {
+    e.preventDefault();
+    e.target.style.backgroundColor = 'transparent';
+} 
+
+function drag(e) {
+    e.dataTransfer.setData("text", e.target.id);
+    console.log(e.target.id);
+} 
+
+function drop(e) {
+    e.preventDefault();
+    e.target.style.backgroundColor = 'transparent';
+    let data = e.dataTransfer.getData("text");
+    console.log(e.target.id);
+
+    $.ajax({
+        timeout: 1000,
+        type: "post",
+        url: "/connect_statements/replace",
+        data: {drag: data, drop: e.target.id},
+        dataType: "text",
+        success: function (response) {
+            loadOpenStatements();
+        },
+        error: function (response) {
+            alert('Не удалось переместить элемент');
+            window.location.href = '/connect_statements';
+        }
+    });
+}
 
 
 
