@@ -7,6 +7,33 @@ function enableScroll() {
     document.body.style.overflow = 'auto';
 }
 
+function createWinFolder () {
+    const rootWin = document.getElementById('root-win');
+    rootWin.innerHTML = `<div class="window-background">
+            <div class="window">
+                <div class="window-content">
+                    <div class="window-top">
+                        <div class="window-top-label">Новая папка</div>
+                        <a href="javascript: destroyWin()" class="window-top-close">
+                            <img class="window-top-close-img" src="/static/img/cross.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="window-middle">
+                        <div class="window-middle-row">
+                          <label class="window-middle-label">Название</label>
+                          <input class="modal-base-input middle-input" type="text" autocomplete="off" id="form-folder">
+                        </div>
+                    </div>
+                    <div class="window-bottom">
+                        <a class="modal-base-button" href="javascript: addFolder()">Создать</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>`
+    disableScroll();
+}
+
 
 function createWinAddState () {
     const rootWin = document.getElementById('root-win');
@@ -173,6 +200,88 @@ function createWinChangeWhom (id) {
     
 }
 
+function createWinChangeFolder (id) { 
+    $.ajax({
+        type: "get",
+        url: "/connect_statements/" + id,
+        dataType: "json",
+        success: function (response, _ ,xhr) {
+            if (xhr.status == 200) {
+                const rootWin = document.getElementById('root-win');
+                rootWin.innerHTML = `<div class="window-background">
+                    <div class="window">
+                        <div class="window-content">
+                            <div class="window-top">
+                                <div class="window-top-label">Изменение дополнительной надписи</div>
+                                <a href="javascript: destroyWin()" class="window-top-close">
+                                    <img class="window-top-close-img" src="/static/img/cross.svg" alt="">
+                                </a>
+                            </div>
+                            <div class="window-middle">
+                                <input type="text" class="modal-base-input middle-input" value="${response.for_whom}" id="for_whom_input">
+                                <fieldset>
+                                    <legend>Выбор цвета</legend>
+                                        <div style="display:flex; margin-top:5px;">
+                                            <input type="radio" value="red" name="color-pick" checked>
+                                            <div style="background-color:red; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="DarkRed" name="color-pick">
+                                            <div style="background-color:DarkRed; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="Goldenrod" name="color-pick">
+                                            <div style="background-color:Goldenrod; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="SaddleBrown" name="color-pick">
+                                            <div style="background-color:SaddleBrown; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="DodgerBlue" name="color-pick">
+                                            <div style="background-color:DodgerBlue; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="Blue" name="color-pick">
+                                            <div style="background-color:Blue; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="LimeGreen" name="color-pick">
+                                            <div style="background-color:LimeGreen; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="Green" name="color-pick">
+                                            <div style="background-color:Green; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="DarkSlateGray" name="color-pick">
+                                            <div style="background-color:DarkSlateGray; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="DarkViolet" name="color-pick">
+                                            <div style="background-color:DarkViolet; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                        <div style="display:flex; margin-top:5px;"">
+                                            <input type="radio" value="Black" name="color-pick">
+                                            <div style="background-color:Black; width:20px; height:20px; display:block";></div>
+                                        </div>
+                                </fieldset>
+                            </div>
+                            <div class="window-bottom">
+                                <a class="modal-base-button" href="javascript: sendForWhom(${id})">Сохранить</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>`
+                disableScroll();
+            } else {
+                alert('Не удалось закрыть заявку');
+            }
+        },
+    });
+}
+
 function saveForWhom(id) {
     $.ajax({
         type: "method",
@@ -185,10 +294,11 @@ function saveForWhom(id) {
     });
 }
 
-function destroyWin(update) {
+function destroyWin(update=false) {
     const rootWin = document.getElementById('root-win');
     rootWin.innerHTML = '';
     enableScroll();
-    loadOpenStatements();
-    
+    if (update) {
+        loadOpenStatements();
+    }
 }

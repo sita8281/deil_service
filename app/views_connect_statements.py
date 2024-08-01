@@ -1,5 +1,5 @@
 from app import app, db, models
-from flask import render_template, jsonify, request, abort
+from flask import render_template, jsonify, request, abort, redirect, url_for
 from flask_login import current_user, login_required
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
@@ -166,11 +166,18 @@ def statement_create_folder():
         return 'OK', 200
     except SQLAlchemyError:
         return 'error', 200
+    
+@app.route('/connect_statements/folders', methods=['GET'])
+@login_required
+def statement_get_folder() -> list[dict]:
+    folders = db.session.query(models.StatementsFolder).all()
+    return jsonify([{'id': f.id, 'name': f.name} for f in folders]), 200
 
 
-@app.route('/connect_statements/folders/<int:folder>', methods=['POST'])
+@app.route('/connect_statements/folders/<int:folder>', methods=['GET'])
 @login_required
 def statement_folder_delete(folder: int):
     f = db.session.query(models.StatementsFolder).get_or_404(folder)
-    db.session.remove(f)
-    return 'OK', 200
+    db.session.delete(f)
+    db.session.commit()
+    return redirect(url_for('connect_statements'))

@@ -1,5 +1,11 @@
 
 let waitingIO = false;
+let foldersList = [];
+
+// выделить выбранную папку по Id
+function selectFolder (id) {
+
+}
 
 
 // создать новую заявку на сервере
@@ -39,11 +45,65 @@ function addState () {
 }
 
 
+// создать новую папку на сервере
+function addFolder () {
+    $.ajax({
+        timeout: 1000,
+        type: "post",
+        url: "/connect_statements/folders",
+        data: {name: $('#form-folder').val()},
+        dataType: "text",
+        success: function (response) {
+            destroyWin();
+            if (response == "error") {
+                alert('Не удалось создать папку');
+                return;
+            }
+            loadFolders();
+            
+        },
+        error: function (response) {
+            destroyWin();
+            alert('Сервер не ответил на запрос, возможно проблемы с интернет соединением');
+        }
+    });
+}
+
+// загрузить список папок
+function loadFolders () {
+    $.ajax({
+        timeout: 2000,
+        type: "get",
+        url: "/connect_statements/folders",
+        dataType: "json",
+        success: function (response) {
+            foldersList = response;
+            $('.dynamic-folders').html('');
+            $.each(response, function (indexInArray, valueOfElement) { 
+                const fId = valueOfElement.id
+                const fName = valueOfElement.name
+                let htmlContent = `
+                <div class="folder">
+                    <div class="folder-icon"><img src="/static/img/folder.svg"></div>
+                    <a href="/" class="folder-open">${fName}</a>
+                    <a href="/connect_statements/folders/${fId}" class="folder-delete"><img src="/static/img/cross.svg"></a>
+                </div>
+                `
+                 $(htmlContent).appendTo('.dynamic-folders');
+            });
+            console.log(response);
+        },
+        error: function (response) {
+            alert('Не удалось загрузить папки');
+        } 
+    });
+}
+
 // загрузить список открытых заявок
-function loadOpenStatements () {
+function loadOpenStatements (endPoint="open") {
     $.ajax({
         type: "get",
-        url: "/connect_statements/open",
+        url: "/connect_statements/" + endPoint,
         dataType: "json",
         timeout: 5000,
         success: function (response) {
@@ -83,8 +143,18 @@ function loadOpenStatements () {
                         </div>
                         <div class="statement-state">
                             <div class="state-box ${statusClass}">${status}</div>
-                            <a class="a-btn close-btn" href="javascript: closeStatement(${element.id})">Закрыть</a>
                         </div>
+                        <div class="statement-folder">
+                            <a href="javascript: createWinChangeFolder(${element.id})">
+                                <img style="width: 25px" src="/static/img/folder2.svg">
+                            </a>
+                        </div>
+                        <div class="statement-delete">
+                            <a href="javascript: closeStatement(${element.id})">
+                                <img style="width: 25px" src="/static/img/delete_statement.svg">
+                            </a>
+                        </div>
+
                     </div>
                     <div id="sep-${element.id}" class="separator-statement" ondrop="drop(event)" ondragenter="enterDrag(event)" ondragleave="leaveDrag(event)" ondragover="overDrag(event)"></div>
                     `
@@ -117,6 +187,7 @@ function loadCloseStatements () {
                 return;
             } else {
                 $('.list-close-box').html('');
+                let htmlDoc = '';
                 response.forEach(element => {
                     let status = '';
                     let statusClass = '';
@@ -135,7 +206,7 @@ function loadCloseStatements () {
                             break;
                     }
                     const content = `
-                    <div class="statement" id="id-${element.id}">
+                    <div class="statement-close" id="id-${element.id}">
                         <div class="statement-date">${element.date}</div>
                         <div class="statement-label">
                             <div class="statement-number">${element.id}</div>
@@ -147,8 +218,10 @@ function loadCloseStatements () {
                         </div>
                     </div>
                     `
-                    $(content).appendTo('.list-close-box');
+                    htmlDoc += content
+                    
                 });
+                $('.list-box').html(htmlDoc);
             }
             
         },
@@ -157,7 +230,6 @@ function loadCloseStatements () {
         }
     });
 }
-
 
 // закрыть заявку 
 function closeStatement (id) {
@@ -291,4 +363,5 @@ function drop(e) {
 window.onload = function () {
     console.log('page on ready');
     loadOpenStatements();
+    loadFolders();
 }
