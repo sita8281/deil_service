@@ -17,6 +17,14 @@ def connect_statements():
     return render_template('/connect_statements/index.html')
 
 
+@app.route('/connect_statements/folder/<int:folder_id>', methods=['GET'])
+@login_required
+def connect_statements_list_folder(folder_id):
+    statements = db.session.query(models.ConnectStatements) \
+    .filter(models.ConnectStatements.folder_id == folder_id).all()
+    return jsonify([statement.to_serializeble for statement in statements][::-1])
+
+
 @app.route('/connect_statements/<endp>', methods=['GET'])
 @login_required
 def connect_statements_list(endp):
@@ -33,7 +41,12 @@ def connect_statements_list(endp):
         ).filter(models.ConnectStatements.status == 0).all()
         log.info(f'{current_user.login}: запросил список закрытых заявок')
     else:
-        return abort(404)
+        if not endp.isdigit():
+            return abort(404)
+        folder_id = int(endp)
+        statements = db.session.query(models.ConnectStatements) \
+        .filter(models.ConnectStatements.folder_id == folder_id).all()
+
     return jsonify([statement.to_serializeble for statement in statements][::-1])
 
 
@@ -139,8 +152,25 @@ def statements_replace():
 
     return 'OK', 200
 
-
-@app.route('/connect_statements/folders/<folder>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/connect_statements/folders', methods=['POST'])
 @login_required
-def statement_folder_resource(folder):
+def statement_create_folder():
+    name = request.form.get('name')
+    if not name:
+        return abort(400)
+    
+    db.session.add(models.StatementsFolder(name=name))
+    try:
+        db.session.flush()
+        db.session.commit()
+        return 'OK', 200
+    except SQLAlchemyError:
+        return 'error', 200
+
+
+@app.route('/connect_statements/folders/<int:folder>', methods=['POST'])
+@login_required
+def statement_folder_delete(folder: int):
+    f = db.session.query(models.StatementsFolder).get_or_404(folder)
+    db.session.remove(f)
     return 'OK', 200
