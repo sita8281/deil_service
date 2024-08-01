@@ -7,6 +7,12 @@ a, div, label, span, textarea {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+fieldset {
+    margin-top: 10px;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+
 
 .pass-contain {
     display: block;
@@ -116,6 +122,7 @@ a, div, label, span, textarea {
     padding-right: 5px;
     font-size: 15px;
     height: 20px;
+    text-decoration: none;
 }
 
 .statement-state {

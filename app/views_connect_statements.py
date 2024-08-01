@@ -55,7 +55,8 @@ def connect_statements_add():
             date=date,
             for_whom=form.get('for_whom'),
             status=1,
-            messages=pickle.dumps(messages)
+            messages=pickle.dumps(messages),
+            for_whom_color='green',
             )
         )
     try:
@@ -80,8 +81,8 @@ def connect_statements_resource(iid):
         return jsonify({
             'messages': messages,
             'name': statement.name,
-            'status': statement.status
-
+            'status': statement.status,
+            'for_whom': statement.for_whom
         })
     form = request.form
 
@@ -96,6 +97,8 @@ def connect_statements_resource(iid):
         statement.status = int(form['status'])
     if form.get('for_whom'):
         statement.for_whom = form['for_whom']
+    if form.get('for_whom_color'):
+        statement.for_whom_color = form['for_whom_color']
     try:
         db.session.flush()
         db.session.commit()

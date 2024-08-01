@@ -70,12 +70,16 @@ function loadOpenStatements () {
                             statusClass = 'status-close';
                             break;
                     }
+                    let defaultForWhomColor = 'green';
+                    if (element.for_whom_color) {
+                        defaultForWhomColor = element.for_whom_color;
+                    }
                     const content = `
                     <div class="statement" id="id-${element.id}" draggable="true" ondragstart="drag(event)">
                         <div class="statement-date">${element.date}</div>
                         <div class="statement-label">
                             <a class="statement-name" href="javascript: createWinChangeState(${element.id})">${element.name}</a>
-                            <div class="statement-whom">${element.for_whom}</div>
+                            <a class="statement-whom" href="javascript: createWinChangeWhom(${element.id})" style="color: ${defaultForWhomColor};border: 2px solid ${defaultForWhomColor}">${element.for_whom}</a>
                         </div>
                         <div class="statement-state">
                             <div class="state-box ${statusClass}">${status}</div>
@@ -93,6 +97,11 @@ function loadOpenStatements () {
             alert('Не удалось загрузить список заявок')
         }
     });
+}
+
+// открыть окно изменения надписи кому адресована заявка
+function changeForWhom(id) {
+    
 }
 
 // загрузить список закрытых заявок
@@ -187,6 +196,23 @@ function sendMessage (id) {
                 alert('Не удалось отправить сообщение');
             }
         },
+    });
+}
+
+// изменить дополнительную надпись 
+function sendForWhom (id) {
+    $.ajax({
+        type: "post",
+        url: "/connect_statements/" + id,
+        data: {for_whom_color: $('input[name="color-pick"]:checked').val(), for_whom: $('#for_whom_input').val()},
+        dataType: "text",
+        timeout: 5000,
+        success: function (response, _ ,xhr) {
+            window.location.href = '/connect_statements';
+        },
+        error: function (response) {
+            alert('Не удалось отправить форму');
+        }
     });
 }
 
