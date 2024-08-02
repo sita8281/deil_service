@@ -1,12 +1,12 @@
 
 let waitingIO = false;
 let foldersList = [];
+let currentFolder = null;
 
 // выделить выбранную папку по Id
 function selectFolder (id) {
 
 }
-
 
 // создать новую заявку на сервере
 function addState () {
@@ -69,6 +69,29 @@ function addFolder () {
     });
 }
 
+// переместить хост в другую папку, на сервере
+function replaceStatementToFolder (statement_id) {
+    const folderId = $('.window-middle select').val();
+        if (!folderId) {
+            alert('Папка не выбрана');
+            return;
+        }
+    $.ajax({
+        timeout: 2000,
+        type: "post",
+        url: "/connect_statements/" + statement_id,
+        data: {"folder_id": folderId},
+        dataType: "text",
+        success: function (response) {
+            destroyWin(update=true);
+
+        },
+        error: function (resp) {
+            alert('Не удалось переместить хост в другую папку');
+        }
+    });
+}
+
 // загрузить список папок
 function loadFolders () {
     $.ajax({
@@ -85,7 +108,7 @@ function loadFolders () {
                 let htmlContent = `
                 <div class="folder">
                     <div class="folder-icon"><img src="/static/img/folder.svg"></div>
-                    <a href="/" class="folder-open">${fName}</a>
+                    <a href="javascript: loadOpenStatements(endPoint=${fId})" class="folder-open">${fName}</a>
                     <a href="/connect_statements/folders/${fId}" class="folder-delete"><img src="/static/img/cross.svg"></a>
                 </div>
                 `
@@ -107,6 +130,7 @@ function loadOpenStatements (endPoint="open") {
         dataType: "json",
         timeout: 5000,
         success: function (response) {
+            console.log(response);
             if (!Array.isArray(response)) {
                 alert('Сервер отдал некорректный ответ');
                 return;

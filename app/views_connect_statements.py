@@ -95,7 +95,8 @@ def connect_statements_resource(iid):
             'messages': messages,
             'name': statement.name,
             'status': statement.status,
-            'for_whom': statement.for_whom
+            'for_whom': statement.for_whom,
+            'folder_id': statement.folder_id
         })
     form = request.form
 
@@ -112,6 +113,8 @@ def connect_statements_resource(iid):
         statement.for_whom = form['for_whom']
     if form.get('for_whom_color'):
         statement.for_whom_color = form['for_whom_color']
+    if form.get('folder_id'):
+        statement.folder_id = form['folder_id']
     try:
         db.session.flush()
         db.session.commit()
