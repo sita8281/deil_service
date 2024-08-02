@@ -5,7 +5,16 @@ let currentFolder = null;
 
 // выделить выбранную папку по Id
 function selectFolder (id) {
-
+    const foldersList = $('.folder');
+    $.each(foldersList, function (indexInArray, valueOfElement) {
+        console.log(id);
+        if (`folder-${id}` == valueOfElement.id) {
+            $('#' + valueOfElement.id).css('background-color', 'lightblue');
+        } else {
+            $('#' + valueOfElement.id).css('background-color', 'white');
+        }
+        
+    });
 }
 
 // создать новую заявку на сервере
@@ -59,7 +68,7 @@ function addFolder () {
                 alert('Не удалось создать папку');
                 return;
             }
-            loadFolders();
+            window.location.href = '/connect_statements';
             
         },
         error: function (response) {
@@ -87,7 +96,7 @@ function replaceStatementToFolder (statement_id) {
 
         },
         error: function (resp) {
-            alert('Не удалось переместить хост в другую папку');
+            alert('Не удалось переместить заявку в другую папку');
         }
     });
 }
@@ -106,15 +115,14 @@ function loadFolders () {
                 const fId = valueOfElement.id
                 const fName = valueOfElement.name
                 let htmlContent = `
-                <div class="folder">
+                <div class="folder" id="folder-${fId}">
                     <div class="folder-icon"><img src="/static/img/folder.svg"></div>
-                    <a href="javascript: loadOpenStatements(endPoint=${fId})" class="folder-open">${fName}</a>
+                    <a href="javascript: loadOpenStatements(endPoint=${fId})" class="folder-open" id="folder-a-${fId}" ondrop="dropFolder(event)" ondragover="overDrag(event)">${fName}</a>
                     <a href="/connect_statements/folders/${fId}" class="folder-delete"><img src="/static/img/cross.svg"></a>
                 </div>
                 `
-                 $(htmlContent).appendTo('.dynamic-folders');
+                $(htmlContent).appendTo('.dynamic-folders');
             });
-            console.log(response);
         },
         error: function (response) {
             alert('Не удалось загрузить папки');
@@ -123,10 +131,14 @@ function loadFolders () {
 }
 
 // загрузить список открытых заявок
-function loadOpenStatements (endPoint="open") {
+function loadOpenStatements (endPoint=null) {
+    if (endPoint) {
+        currentFolder = endPoint;
+    }
+    selectFolder(currentFolder);
     $.ajax({
         type: "get",
-        url: "/connect_statements/" + endPoint,
+        url: "/connect_statements/list/" + currentFolder,
         dataType: "json",
         timeout: 5000,
         success: function (response) {
@@ -200,9 +212,11 @@ function changeForWhom(id) {
 
 // загрузить список закрытых заявок
 function loadCloseStatements () {
+    currentFolder = endPoint;
+    selectFolder(endPoint);
     $.ajax({
         type: "get",
-        url: "/connect_statements/close",
+        url: "/connect_statements/list/close",
         dataType: "json",
         timeout: 5000,
         success: function (response) {
@@ -266,9 +280,7 @@ function closeStatement (id) {
         success: function (response, _ ,xhr) {
             if (xhr.status == 200) {
                 $('#id-' + id).slideUp(500);
-                setTimeout(function() {
-                    $('#id-' + id).remove()
-                }, 500)
+                setTimeout(() => {loadOpenStatements()}, 500);
             } else {
                 alert('Не удалось закрыть заявку');
             }
@@ -381,11 +393,34 @@ function drop(e) {
     });
 }
 
+function dropFolder(e) {
+    e.preventDefault();
+    let data = e.dataTransfer.getData("text").split('-');
+    const dropId = e.target.id.split('-');
+    const folderId = dropId[dropId.length - 1];
+    const statementId = data[data.length - 1];
+    $.ajax({
+        timeout: 2000,
+        type: "post",
+        url: "/connect_statements/" + statementId,
+        data: {"folder_id": folderId},
+        dataType: "text",
+        success: function (response) {
+            loadOpenStatements();
+        },
+        error: function (resp) {
+            alert('Не удалось переместить заявку в другую папку');
+        }
+    });
+    
+
+}
+
 
 
 
 window.onload = function () {
     console.log('page on ready');
-    loadOpenStatements();
+    loadOpenStatements(endPoint='open');
     loadFolders();
 }

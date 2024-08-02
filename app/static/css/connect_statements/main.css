@@ -34,7 +34,7 @@ fieldset {
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
-    background-color: snow;
+    background-color: rgb(255, 255, 255);
     padding: 3px;
     width: 90%;
     margin-left: auto;
@@ -119,6 +119,8 @@ fieldset {
 
 .list-box {
     margin-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .statement {
@@ -239,12 +241,18 @@ fieldset {
     .main-container {
         width: 980px;
     }
+    .folders-panel {
+    }
 
 }
 
 @media (max-width: 1024px) {
     .main-container {
         width: 720px;
+        flex-direction: column;
+    }
+    .folders-panel {
+        width: 100%;
     }
 
 }
@@ -252,6 +260,57 @@ fieldset {
 @media (max-width: 768px) {
     .main-container {
         width: 520px;
+    }
+    .statements-box {
+
+    }
+
+    .top-panel-box {
+    }
+
+    .a-btn {
+    }
+    .a-btn:hover {
+    }
+
+    .separator {
+    }
+
+    .statement {
+        padding: 5px;
+    }
+
+    .statement-date {
+        width: 20%;
+        margin-left: 0;
+        font-size: 12px;
+    }
+
+    .statement-label {
+        width: 60%;
+    }
+
+    .statement-number {
+        font-size: 12px;
+    }
+
+    .statement-name {
+        font-size: 14px;
+    }
+
+    .statement-whom {
+        font-size: 12px;
+        height: 15px;
+    }
+
+    .statement-state {
+        width: 20%;
+        font-size: 14px;
+    }
+
+    .close-btn {
+        font-size: 12px;
+        width: 50px;
     }
 
 }

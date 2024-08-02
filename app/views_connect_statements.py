@@ -25,7 +25,7 @@ def connect_statements_list_folder(folder_id):
     return jsonify([statement.to_serializeble for statement in statements][::-1])
 
 
-@app.route('/connect_statements/<endp>', methods=['GET'])
+@app.route('/connect_statements/list/<endp>', methods=['GET'])
 @login_required
 def connect_statements_list(endp):
     if endp == 'open':
@@ -45,7 +45,7 @@ def connect_statements_list(endp):
             return abort(404)
         folder_id = int(endp)
         statements = db.session.query(models.ConnectStatements) \
-        .filter(models.ConnectStatements.folder_id == folder_id).all()
+        .filter(models.ConnectStatements.status >= 1).filter(models.ConnectStatements.folder_id == folder_id).all()
 
     return jsonify([statement.to_serializeble for statement in statements][::-1])
 

@@ -28,7 +28,7 @@
         <div class="main-container">
             <div class="folders-panel">
                 <div class="top-panel-box">
-                    <a class="a-btn" href="javascript: createWinFolder()">Новая папка</a>
+                    <a class="a-btn" style="margin-left: 10px;" href="javascript: createWinFolder()">Новая папка</a>
                 </div>
 
                 <div class="separator"></div>
@@ -36,14 +36,14 @@
                 <div class="folders-box">
 
                     
-                    <div class="folder">
+                    <div class="folder" id="folder-open">
                         <div class="folder-icon"><img src="/static/img/folder_all.svg"></div>
-                        <a href="javascript: loadOpenStatements()" class="folder-open">Открытые заявки (ALL)</a>
+                        <a href="javascript: loadOpenStatements(endPoint='open')" class="folder-open">Открытые заявки (ALL)</a>
                     </div>
                     
-                    <div class="folder">
+                    <div class="folder" id="folder-close">
                         <div class="folder-icon"><img src="/static/img/trash.svg"></div>
-                        <a href="javascript: loadCloseStatements()" class="folder-open">Корзина</a>
+                        <a href="javascript: loadCloseStatements(endPoint='close')" class="folder-open">Корзина</a>
                     </div>
 
                     <div class="dynamic-folders">
