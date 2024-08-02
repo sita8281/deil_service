@@ -1,5 +1,5 @@
 from app import app, db, models
-from flask import render_template, jsonify, request, abort
+from flask import render_template, jsonify, request, abort, redirect, url_for
 from flask_login import current_user, login_required
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
@@ -17,7 +17,15 @@ def connect_statements():
     return render_template('/connect_statements/index.html')
 
 
-@app.route('/connect_statements/<endp>', methods=['GET'])
+@app.route('/connect_statements/folder/<int:folder_id>', methods=['GET'])
+@login_required
+def connect_statements_list_folder(folder_id):
+    statements = db.session.query(models.ConnectStatements) \
+    .filter(models.ConnectStatements.folder_id == folder_id).all()
+    return jsonify([statement.to_serializeble for statement in statements][::-1])
+
+
+@app.route('/connect_statements/list/<endp>', methods=['GET'])
 @login_required
 def connect_statements_list(endp):
     if endp == 'open':
@@ -33,7 +41,12 @@ def connect_statements_list(endp):
         ).filter(models.ConnectStatements.status == 0).all()
         log.info(f'{current_user.login}: запросил список закрытых заявок')
     else:
-        return abort(404)
+        if not endp.isdigit():
+            return abort(404)
+        folder_id = int(endp)
+        statements = db.session.query(models.ConnectStatements) \
+        .filter(models.ConnectStatements.status >= 1).filter(models.ConnectStatements.folder_id == folder_id).all()
+
     return jsonify([statement.to_serializeble for statement in statements][::-1])
 
 
@@ -82,7 +95,8 @@ def connect_statements_resource(iid):
             'messages': messages,
             'name': statement.name,
             'status': statement.status,
-            'for_whom': statement.for_whom
+            'for_whom': statement.for_whom,
+            'folder_id': statement.folder_id
         })
     form = request.form
 
@@ -99,6 +113,8 @@ def connect_statements_resource(iid):
         statement.for_whom = form['for_whom']
     if form.get('for_whom_color'):
         statement.for_whom_color = form['for_whom_color']
+    if form.get('folder_id'):
+        statement.folder_id = form['folder_id']
     try:
         db.session.flush()
         db.session.commit()
@@ -139,8 +155,32 @@ def statements_replace():
 
     return 'OK', 200
 
-
-@app.route('/connect_statements/folders/<folder>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/connect_statements/folders', methods=['POST'])
 @login_required
-def statement_folder_resource(folder):
-    return 'OK', 200
+def statement_create_folder():
+    name = request.form.get('name')
+    if not name:
+        return abort(400)
+    
+    db.session.add(models.StatementsFolder(name=name))
+    try:
+        db.session.flush()
+        db.session.commit()
+        return 'OK', 200
+    except SQLAlchemyError:
+        return 'error', 200
+    
+@app.route('/connect_statements/folders', methods=['GET'])
+@login_required
+def statement_get_folder() -> list[dict]:
+    folders = db.session.query(models.StatementsFolder).all()
+    return jsonify([{'id': f.id, 'name': f.name} for f in folders]), 200
+
+
+@app.route('/connect_statements/folders/<int:folder>', methods=['GET'])
+@login_required
+def statement_folder_delete(folder: int):
+    f = db.session.query(models.StatementsFolder).get_or_404(folder)
+    db.session.delete(f)
+    db.session.commit()
+    return redirect(url_for('connect_statements'))

@@ -1,6 +1,20 @@
 
 let waitingIO = false;
+let foldersList = [];
+let currentFolder = null;
 
+// выделить выбранную папку по Id
+function selectFolder (id) {
+    const foldersList = $('.folder');
+    $.each(foldersList, function (indexInArray, valueOfElement) {
+        if (`folder-${id}` == valueOfElement.id) {
+            $('#' + valueOfElement.id).css('background-color', 'lightblue');
+        } else {
+            $('#' + valueOfElement.id).css('background-color', 'white');
+        }
+        
+    });
+}
 
 // создать новую заявку на сервере
 function addState () {
@@ -39,11 +53,91 @@ function addState () {
 }
 
 
+// создать новую папку на сервере
+function addFolder () {
+    $.ajax({
+        timeout: 1000,
+        type: "post",
+        url: "/connect_statements/folders",
+        data: {name: $('#form-folder').val()},
+        dataType: "text",
+        success: function (response) {
+            destroyWin();
+            if (response == "error") {
+                alert('Не удалось создать папку');
+                return;
+            }
+            window.location.href = '/connect_statements';
+            
+        },
+        error: function (response) {
+            destroyWin();
+            alert('Сервер не ответил на запрос, возможно проблемы с интернет соединением');
+        }
+    });
+}
+
+// переместить хост в другую папку, на сервере
+function replaceStatementToFolder (statement_id) {
+    const folderId = $('.window-middle select').val();
+        if (!folderId) {
+            alert('Папка не выбрана');
+            return;
+        }
+    $.ajax({
+        timeout: 2000,
+        type: "post",
+        url: "/connect_statements/" + statement_id,
+        data: {"folder_id": folderId},
+        dataType: "text",
+        success: function (response) {
+            destroyWin(update=true);
+
+        },
+        error: function (resp) {
+            alert('Не удалось переместить заявку в другую папку');
+        }
+    });
+}
+
+// загрузить список папок
+function loadFolders () {
+    $.ajax({
+        timeout: 2000,
+        type: "get",
+        url: "/connect_statements/folders",
+        dataType: "json",
+        success: function (response) {
+            foldersList = response;
+            $('.dynamic-folders').html('');
+            $.each(response, function (indexInArray, valueOfElement) { 
+                const fId = valueOfElement.id
+                const fName = valueOfElement.name
+                let htmlContent = `
+                <div class="folder" id="folder-${fId}">
+                    <div class="folder-icon"><img src="/static/img/folder.svg"></div>
+                    <a href="javascript: loadOpenStatements(endPoint=${fId})" class="folder-open" id="folder-a-${fId}" ondrop="dropFolder(event)" ondragover="overDrag(event)">${fName}</a>
+                    <a href="/connect_statements/folders/${fId}" class="folder-delete"><img src="/static/img/cross.svg"></a>
+                </div>
+                `
+                $(htmlContent).appendTo('.dynamic-folders');
+            });
+        },
+        error: function (response) {
+            alert('Не удалось загрузить папки');
+        } 
+    });
+}
+
 // загрузить список открытых заявок
-function loadOpenStatements () {
+function loadOpenStatements (endPoint=null) {
+    if (endPoint) {
+        currentFolder = endPoint;
+    }
+    selectFolder(currentFolder);
     $.ajax({
         type: "get",
-        url: "/connect_statements/open",
+        url: "/connect_statements/list/" + currentFolder,
         dataType: "json",
         timeout: 5000,
         success: function (response) {
@@ -83,8 +177,18 @@ function loadOpenStatements () {
                         </div>
                         <div class="statement-state">
                             <div class="state-box ${statusClass}">${status}</div>
-                            <a class="a-btn close-btn" href="javascript: closeStatement(${element.id})">Закрыть</a>
                         </div>
+                        <div class="statement-folder">
+                            <a href="javascript: createWinChangeFolder(${element.id})">
+                                <img style="width: 25px" src="/static/img/folder2.svg">
+                            </a>
+                        </div>
+                        <div class="statement-delete">
+                            <a href="javascript: closeStatement(${element.id})">
+                                <img style="width: 25px" src="/static/img/delete_statement.svg">
+                            </a>
+                        </div>
+
                     </div>
                     <div id="sep-${element.id}" class="separator-statement" ondrop="drop(event)" ondragenter="enterDrag(event)" ondragleave="leaveDrag(event)" ondragover="overDrag(event)"></div>
                     `
@@ -106,9 +210,11 @@ function changeForWhom(id) {
 
 // загрузить список закрытых заявок
 function loadCloseStatements () {
+    currentFolder = endPoint;
+    selectFolder(endPoint);
     $.ajax({
         type: "get",
-        url: "/connect_statements/close",
+        url: "/connect_statements/list/close",
         dataType: "json",
         timeout: 5000,
         success: function (response) {
@@ -117,6 +223,7 @@ function loadCloseStatements () {
                 return;
             } else {
                 $('.list-close-box').html('');
+                let htmlDoc = '';
                 response.forEach(element => {
                     let status = '';
                     let statusClass = '';
@@ -135,7 +242,7 @@ function loadCloseStatements () {
                             break;
                     }
                     const content = `
-                    <div class="statement" id="id-${element.id}">
+                    <div class="statement-close" id="id-${element.id}">
                         <div class="statement-date">${element.date}</div>
                         <div class="statement-label">
                             <div class="statement-number">${element.id}</div>
@@ -147,8 +254,10 @@ function loadCloseStatements () {
                         </div>
                     </div>
                     `
-                    $(content).appendTo('.list-close-box');
+                    htmlDoc += content
+                    
                 });
+                $('.list-box').html(htmlDoc);
             }
             
         },
@@ -157,7 +266,6 @@ function loadCloseStatements () {
         }
     });
 }
-
 
 // закрыть заявку 
 function closeStatement (id) {
@@ -170,9 +278,7 @@ function closeStatement (id) {
         success: function (response, _ ,xhr) {
             if (xhr.status == 200) {
                 $('#id-' + id).slideUp(500);
-                setTimeout(function() {
-                    $('#id-' + id).remove()
-                }, 500)
+                setTimeout(() => {loadOpenStatements()}, 500);
             } else {
                 alert('Не удалось закрыть заявку');
             }
@@ -285,10 +391,34 @@ function drop(e) {
     });
 }
 
+function dropFolder(e) {
+    e.preventDefault();
+    let data = e.dataTransfer.getData("text").split('-');
+    const dropId = e.target.id.split('-');
+    const folderId = dropId[dropId.length - 1];
+    const statementId = data[data.length - 1];
+    $.ajax({
+        timeout: 2000,
+        type: "post",
+        url: "/connect_statements/" + statementId,
+        data: {"folder_id": folderId},
+        dataType: "text",
+        success: function (response) {
+            loadOpenStatements();
+        },
+        error: function (resp) {
+            alert('Не удалось переместить заявку в другую папку');
+        }
+    });
+    
+
+}
+
 
 
 
 window.onload = function () {
     console.log('page on ready');
-    loadOpenStatements();
+    loadOpenStatements(endPoint='open');
+    loadFolders();
 }

@@ -7,6 +7,33 @@ function enableScroll() {
     document.body.style.overflow = 'auto';
 }
 
+function createWinFolder () {
+    const rootWin = document.getElementById('root-win');
+    rootWin.innerHTML = `<div class="window-background">
+            <div class="window">
+                <div class="window-content">
+                    <div class="window-top">
+                        <div class="window-top-label">Новая папка</div>
+                        <a href="javascript: destroyWin()" class="window-top-close">
+                            <img class="window-top-close-img" src="/static/img/cross.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="window-middle">
+                        <div class="window-middle-row">
+                          <label class="window-middle-label">Название</label>
+                          <input class="modal-base-input middle-input" type="text" autocomplete="off" id="form-folder">
+                        </div>
+                    </div>
+                    <div class="window-bottom">
+                        <a class="modal-base-button" href="javascript: addFolder()">Создать</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>`
+    disableScroll();
+}
+
 
 function createWinAddState () {
     const rootWin = document.getElementById('root-win');
@@ -173,6 +200,63 @@ function createWinChangeWhom (id) {
     
 }
 
+function createWinChangeFolder (id) { 
+    $.ajax({
+        type: "get",
+        url: "/connect_statements/folders",
+        dataType: "json",
+        success: function (response_folders, _ ,xhr) {
+            if (xhr.status == 200) {
+                const rootWin = document.getElementById('root-win');
+                rootWin.innerHTML = `<div class="window-background">
+                    <div class="window">
+                        <div class="window-content">
+                            <div class="window-top">
+                                <div class="window-top-label">Переместить в папку</div>
+                                <a href="javascript: destroyWin()" class="window-top-close">
+                                    <img class="window-top-close-img" src="/static/img/cross.svg" alt="">
+                                </a>
+                            </div>
+                            <div class="window-middle">
+                                <label>Текущая папка: не выбрана</label>
+                                <select style="margin-top: 20px;">
+                                    <option value="">--Выберите папку--</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="window-bottom">
+                                <a class="modal-base-button" href="javascript: replaceStatementToFolder(${id})">Сохранить</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>`
+                disableScroll();
+                $.ajax({
+                    timeout: 2000,
+                    type: "get",
+                    url: "/connect_statements/" + id,
+                    dataType: "json",
+                    success: function (response) {
+                        $.each(response_folders, function (indexInArray, valueOfElement) { 
+                            let htmlDoc = `
+                            <option value="${valueOfElement.id}">${valueOfElement.name}</option>
+                            `
+                            $(htmlDoc).appendTo(".window-middle select");
+                            if (valueOfElement.id == response.folder_id) {
+                                $('.window-middle label').text('Текущая папка:' + valueOfElement.name);
+                            }
+                        });
+                    }
+                });
+            } else {
+                alert('Не удалось изменить папку');
+            }
+        },
+    });
+}
+
+
 function saveForWhom(id) {
     $.ajax({
         type: "method",
@@ -185,10 +269,11 @@ function saveForWhom(id) {
     });
 }
 
-function destroyWin(update) {
+function destroyWin(update=false) {
     const rootWin = document.getElementById('root-win');
     rootWin.innerHTML = '';
     enableScroll();
-    loadOpenStatements();
-    
+    if (update) {
+        loadOpenStatements();
+    }
 }

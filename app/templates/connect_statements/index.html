@@ -22,12 +22,38 @@
         <div class="pass-contain">
 
         </div>
+
+        
+
         <div class="main-container">
+            <div class="folders-panel">
+                <div class="top-panel-box">
+                    <a class="a-btn" style="margin-left: 10px;" href="javascript: createWinFolder()">Новая папка</a>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="folders-box">
+
+                    
+                    <div class="folder" id="folder-open">
+                        <div class="folder-icon"><img src="/static/img/folder_all.svg"></div>
+                        <a href="javascript: loadOpenStatements(endPoint='open')" class="folder-open">Открытые заявки (ALL)</a>
+                    </div>
+                    
+                    <div class="folder" id="folder-close">
+                        <div class="folder-icon"><img src="/static/img/trash.svg"></div>
+                        <a href="javascript: loadCloseStatements(endPoint='close')" class="folder-open">Корзина</a>
+                    </div>
+
+                    <div class="dynamic-folders">
+                    </div>
+                </div>
+            </div>
 
             <div class="statements-box">
                 <div class="top-panel-box">
                     <a class="a-btn" href="javascript: createWinAddState()">Новая заявка</a>
-                    <a class="a-btn" href="javascript: loadCloseStatements()">Закрытые заявки</a>
                 </div>
 
                 <div class="separator"></div>

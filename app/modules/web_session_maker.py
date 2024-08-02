@@ -6,7 +6,7 @@ import uuid
 class SessionMaker(Thread):
     _online_users = {}
     daemon = True
-    timeout_session = 30
+    timeout_session = 300
 
     def run(self) -> None:
         print(' * Web Sessions Daemon: on')

@@ -19,8 +19,53 @@ fieldset {
     height: 80px;
     width: 100%;
 }
+
+.folders-panel {
+    box-sizing: border-box;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    min-height: 100%;
+    background-color: transparent;
+}
+
+.folder {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    padding: 3px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.folder-open {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 100%;
+    text-decoration: none;
+    color: rgb(58, 58, 58);
+}
+
+.folder-open:hover {
+    text-decoration: underline;
+}
+
+.folder-delete {
+    margin-right: 5px;
+    margin-left: auto;
+}
+
+.folder img {
+    height: 25px;
+}
 .main-container {
-    display: block;
+    display: flex;
     width: 1200px;
     min-height: 600px;
     background-color: rgb(228, 228, 228);
@@ -32,6 +77,7 @@ fieldset {
     border: 1px solid silver;
 
 }
+
 .statements-box {
     width: 98%;
     display: block;
@@ -73,9 +119,25 @@ fieldset {
 
 .list-box {
     margin-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .statement {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.statement-close {
+    margin-top: 10px;
+    margin-bottom: 10px;
     box-sizing: border-box;
     padding: 10px;
     width: 100%;
@@ -129,6 +191,18 @@ fieldset {
     width: 20%;
 }
 
+.statement-folder {
+    height: 35px;
+    width: 35px;
+
+}
+
+.statement-delete {
+    height: 35px;
+    width: 35px;
+}
+
+
 .close-btn {
     margin-top: 5px;
     background-color: rgb(172, 105, 105);
@@ -167,12 +241,18 @@ fieldset {
     .main-container {
         width: 980px;
     }
+    .folders-panel {
+    }
 
 }
 
 @media (max-width: 1024px) {
     .main-container {
         width: 720px;
+        flex-direction: column;
+    }
+    .folders-panel {
+        width: 100%;
     }
 
 }
@@ -180,6 +260,57 @@ fieldset {
 @media (max-width: 768px) {
     .main-container {
         width: 520px;
+    }
+    .statements-box {
+
+    }
+
+    .top-panel-box {
+    }
+
+    .a-btn {
+    }
+    .a-btn:hover {
+    }
+
+    .separator {
+    }
+
+    .statement {
+        padding: 5px;
+    }
+
+    .statement-date {
+        width: 20%;
+        margin-left: 0;
+        font-size: 12px;
+    }
+
+    .statement-label {
+        width: 60%;
+    }
+
+    .statement-number {
+        font-size: 12px;
+    }
+
+    .statement-name {
+        font-size: 14px;
+    }
+
+    .statement-whom {
+        font-size: 12px;
+        height: 15px;
+    }
+
+    .statement-state {
+        width: 20%;
+        font-size: 14px;
+    }
+
+    .close-btn {
+        font-size: 12px;
+        width: 50px;
     }
 
 }
