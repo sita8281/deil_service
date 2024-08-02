@@ -243,7 +243,6 @@ function createWinChangeFolder (id) {
                             <option value="${valueOfElement.id}">${valueOfElement.name}</option>
                             `
                             $(htmlDoc).appendTo(".window-middle select");
-                            console.log(valueOfElement.id, response.folder_id);
                             if (valueOfElement.id == response.folder_id) {
                                 $('.window-middle label').text('Текущая папка:' + valueOfElement.name);
                             }

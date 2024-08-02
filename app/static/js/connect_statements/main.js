@@ -7,7 +7,6 @@ let currentFolder = null;
 function selectFolder (id) {
     const foldersList = $('.folder');
     $.each(foldersList, function (indexInArray, valueOfElement) {
-        console.log(id);
         if (`folder-${id}` == valueOfElement.id) {
             $('#' + valueOfElement.id).css('background-color', 'lightblue');
         } else {
@@ -142,7 +141,6 @@ function loadOpenStatements (endPoint=null) {
         dataType: "json",
         timeout: 5000,
         success: function (response) {
-            console.log(response);
             if (!Array.isArray(response)) {
                 alert('Сервер отдал некорректный ответ');
                 return;
