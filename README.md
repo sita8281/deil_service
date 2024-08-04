@@ -29,6 +29,8 @@
 ![icmplib](https://img.shields.io/badge/icmplib-v3.0.4-blue)
 ![paramiko](https://img.shields.io/badge/paramiko-v3.4.0-blue)
 
+or just [jump to the conclusion](#func)
+
 
 ### Database
  ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
@@ -38,7 +40,42 @@
 
 
 ### Простая схема архитектуры проекта
-<img src="demo/schem.jpg" alt="drawing" width="900"/>
+<img src="demo/schem.jpg" alt="drawing" width="900">
+
+
+### Основные представления (views) проекта
+
+* [Главная страница / Dashboard](#dash-bord)
+* [Мониторинг / ICMP](#icmp)
+* [Поиск по логину / Search Port](#search)
+* [Заявки на ремонт / HelpDesk](#helpdesk)
+* [Заявки на подключение / ConnectStatements](#stmts)
+* [Интерфейс / GPON](#gpon)
+* [Хранение конфигов / ConfigStorage](#config)
+* [Список клиентов / BillingViewer](#carbon)
+* [Админ панель / SimpleAdminPanel](#admin)
+
+
+<h2 id="dash-bord">Dashboard</h2>
+
+<h2 id="icmp">ICMP</h2>
+
+<h2 id="search">Search Port</h2>
+
+<h2 id="helpdesk">HelpDesk</h2>
+
+<h2 id="stmts">ConnectStatements</h2>
+
+<h2 id="gpon">GPON GUI</h2>
+
+<h2 id="config">Config Storage</h2>
+
+<h2 id="carbon">Carbon</h2>
+
+<h2 id="admin">Admin Panel</h2>
+
+
+
 
 
 
